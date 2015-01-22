@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1421940904 source:/home/oalister/BlockGame/main.cpp
+	<iostream>
+	<SDL2/SDL.h>
+
