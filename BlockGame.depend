@@ -3,3 +3,74 @@
 	<iostream>
 	<SDL2/SDL.h>
 
+1422751066 source:/home/oalister/Documents/CI224Cube/main.cpp
+	<iostream>
+	<SDL2/SDL.h>
+	"window.h"
+	"shader.h"
+	"cube.h"
+	"camera.h"
+	"transform.h"
+	"gamemanager.h"
+
+1422020115 source:/home/oalister/Documents/CI224Cube/window.cpp
+	"window.h"
+	<GL/glew.h>
+	<iostream>
+
+1422019912 /home/oalister/Documents/CI224Cube/window.h
+	<SDL2/SDL.h>
+	<string>
+
+1422020464 source:/home/oalister/Documents/CI224Cube/shader.cpp
+	"shader.h"
+	<iostream>
+	<fstream>
+
+1422020711 /home/oalister/Documents/CI224Cube/shader.h
+	<string>
+	<GL/glew.h>
+	<iostream>
+	<fstream>
+	"transform.h"
+	"camera.h"
+
+1422020572 /home/oalister/Documents/CI224Cube/transform.h
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+	"transform.h"
+
+1422748070 /home/oalister/Documents/CI224Cube/camera.h
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+
+1422567481 source:/home/oalister/Documents/CI224Cube/cube.cpp
+	"cube.h"
+
+1422020967 /home/oalister/Documents/CI224Cube/cube.h
+	<glm/glm.hpp>
+	<GL/glew.h>
+
+1422476140 source:/home/oalister/Documents/CI224Cube/gamemanager.cpp
+	"gamemanager.h"
+
+1422476582 /home/oalister/Documents/CI224Cube/gamemanager.h
+	"shader.h"
+	"cube.h"
+	"camera.h"
+	"transform.h"
+	"window.h"
+
+1422742814 source:/home/oalister/Documents/CI224Cube/game.cpp
+	"game.h"
+
+1422742524 /home/oalister/Documents/CI224Cube/game.h
+	<iostream>
+	<SDL2/SDL.h>
+	"window.h"
+	"shader.h"
+	"cube.h"
+	"camera.h"
+	"transform.h"
+	"gamemanager.h"
+

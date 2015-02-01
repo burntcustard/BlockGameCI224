@@ -37,7 +37,13 @@
 			<Add library="GLEW" />
 			<Add library="SDL2" />
 		</Linker>
+		<Unit filename="camera.h" />
+		<Unit filename="cube.cpp" />
+		<Unit filename="cube.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="shader.cpp" />
+		<Unit filename="shader.h" />
+		<Unit filename="transform.h" />
 		<Unit filename="window.cpp" />
 		<Unit filename="window.h" />
 		<Extensions>
