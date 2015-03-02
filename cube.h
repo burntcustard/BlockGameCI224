@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 #include <GL/glew.h>
+#include "transform.h"
 
 
 class Vertex
@@ -21,6 +22,7 @@ class Cube
         Cube();
 
         void Draw();
+        Transform t;
 
         virtual ~Cube();
     protected:
