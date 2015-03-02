@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SDL2/SDL.h>
+#include <GL/glew.h>
 #include "window.h"
 #include "shader.h"
 #include "cube.h"
