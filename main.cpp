@@ -125,7 +125,4 @@ int main()
     }
     SDL_QUIT;
     return 0;
-
-
-
 }
