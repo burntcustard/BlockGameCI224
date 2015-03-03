@@ -129,3 +129,59 @@
 	<GL/glew.h>
 	<iostream>
 
+1425294510 source:/home/oalister/BlockGameCI224/cube.cpp
+	"cube.h"
+
+1425296132 /home/oalister/BlockGameCI224/cube.h
+	<glm/glm.hpp>
+	<GL/glew.h>
+	"transform.h"
+
+1425296731 source:/home/oalister/BlockGameCI224/main.cpp
+	<iostream>
+	<SDL2/SDL.h>
+	"window.h"
+	"shader.h"
+	"cube.h"
+	"camera.h"
+	"transform.h"
+	"gamemanager.h"
+
+1425294510 /home/oalister/BlockGameCI224/window.h
+	<SDL2/SDL.h>
+	<string>
+
+1424865604 /home/oalister/BlockGameCI224/shader.h
+	<string>
+	<GL/glew.h>
+	<iostream>
+	<fstream>
+	"transform.h"
+	"camera.h"
+
+1424865604 /home/oalister/BlockGameCI224/transform.h
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+	"transform.h"
+
+1424865604 /home/oalister/BlockGameCI224/camera.h
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+
+1425294510 /home/oalister/BlockGameCI224/gamemanager.h
+	"shader.h"
+	"cube.h"
+	"camera.h"
+	"transform.h"
+	"window.h"
+
+1424865604 source:/home/oalister/BlockGameCI224/shader.cpp
+	"shader.h"
+	<iostream>
+	<fstream>
+
+1425294510 source:/home/oalister/BlockGameCI224/window.cpp
+	"window.h"
+	<GL/glew.h>
+	<iostream>
+

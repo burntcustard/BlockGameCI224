@@ -14,6 +14,60 @@ Camera camera;
 Transform tCube;
 Transform tCube2;
 
+void handleInput();
+
+int main()
+{
+
+    SDL_Init(SDL_INIT_EVERYTHING);
+    SDL_ShowCursor(0);
+    Window window(1280,720, "game");
+
+   // GameManager game();
+
+    Shader shader("./res/basicShader");
+
+  //  Camera camera;
+    Cube cube;
+ //   Transform tCube;
+    Cube cube2;
+//    Transform tCube2;
+    cout << "Hello world!" << endl;
+    tCube.GetPos().z=4;
+    tCube2.GetPos().z=3;
+    tCube2.GetPos().x=2;
+    //tCube.GetRot().y=45;
+    tCube.GetRot().z=90;
+    cube.t.GetPos().x=4;
+    cube.t.GetPos().z=4;
+
+    while(!window.IsClosed())
+    {
+        glClearColor(0.0f, 0.15f, 0.3f,1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        handleInput();
+
+        cout << cube.t.GetPos().x << endl;
+        tCube.GetRot().x+=2;
+   //     tCube.GetPos().y+=0.01;
+        tCube2.GetRot().z+=2;
+      //  camera.Pitch(1);
+
+        shader.Update(cube.t,camera);
+        cube.Draw();
+        shader.Update(tCube2,camera);
+        cube2.Draw();
+        shader.Bind();
+        window.Update();
+    }
+    SDL_QUIT;
+    return 0;
+
+
+
+}
+
 void handleInput()
 {
     SDL_Event event;
@@ -28,10 +82,10 @@ void handleInput()
             {
                case SDLK_w:
                   camera.MoveForward(0.1);
-                  if(abs(camera.GetPos().x-tCube.GetPos().x)<=1 && abs(camera.GetPos().y-tCube.GetPos().y)<=1 && abs(camera.GetPos().z-tCube.GetPos().z)<=1)
-                  {
-                    camera.MoveForward(-0.1);
-                  }
+                  //if(abs(camera.GetPos().x-cube.t.GetPos().x)<=1 && abs(camera.GetPos().y-cube.t.GetPos().y)<=1 && abs(camera.GetPos().z-cube.t.GetPos().z)<=1)
+                  //{
+                    //camera.MoveForward(-0.1);
+                  //}
                   if(abs(camera.GetPos().x-tCube2.GetPos().x)<=1 && abs(camera.GetPos().y-tCube2.GetPos().y)<=1 && abs(camera.GetPos().z-tCube2.GetPos().z)<=1)
                   {
                     camera.MoveForward(-0.1);
@@ -80,6 +134,7 @@ void handleInput()
          }
       }
 }
+<<<<<<< HEAD
 
 int main()
 {
@@ -126,3 +181,5 @@ int main()
     SDL_QUIT;
     return 0;
 }
+=======
+>>>>>>> e3200b3cb5bf9eaef4667a64b200390859c10baa
