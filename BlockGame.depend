@@ -1,191 +1,4 @@
 # depslib dependency file v1.0
-1421940904 source:/home/oalister/BlockGame/main.cpp
-	<iostream>
-	<SDL2/SDL.h>
-
-1422751066 source:/home/oalister/Documents/CI224Cube/main.cpp
-	<iostream>
-	<SDL2/SDL.h>
-	"window.h"
-	"shader.h"
-	"cube.h"
-	"camera.h"
-	"transform.h"
-	"gamemanager.h"
-
-1422020115 source:/home/oalister/Documents/CI224Cube/window.cpp
-	"window.h"
-	<GL/glew.h>
-	<iostream>
-
-1422019912 /home/oalister/Documents/CI224Cube/window.h
-	<SDL2/SDL.h>
-	<string>
-
-1422020464 source:/home/oalister/Documents/CI224Cube/shader.cpp
-	"shader.h"
-	<iostream>
-	<fstream>
-
-1422020711 /home/oalister/Documents/CI224Cube/shader.h
-	<string>
-	<GL/glew.h>
-	<iostream>
-	<fstream>
-	"transform.h"
-	"camera.h"
-
-1422020572 /home/oalister/Documents/CI224Cube/transform.h
-	<glm/glm.hpp>
-	<glm/gtx/transform.hpp>
-	"transform.h"
-
-1422748070 /home/oalister/Documents/CI224Cube/camera.h
-	<glm/glm.hpp>
-	<glm/gtx/transform.hpp>
-
-1422567481 source:/home/oalister/Documents/CI224Cube/cube.cpp
-	"cube.h"
-
-1422020967 /home/oalister/Documents/CI224Cube/cube.h
-	<glm/glm.hpp>
-	<GL/glew.h>
-
-1422476140 source:/home/oalister/Documents/CI224Cube/gamemanager.cpp
-	"gamemanager.h"
-
-1422476582 /home/oalister/Documents/CI224Cube/gamemanager.h
-	"shader.h"
-	"cube.h"
-	"camera.h"
-	"transform.h"
-	"window.h"
-
-1422742814 source:/home/oalister/Documents/CI224Cube/game.cpp
-	"game.h"
-
-1422742524 /home/oalister/Documents/CI224Cube/game.h
-	<iostream>
-	<SDL2/SDL.h>
-	"window.h"
-	"shader.h"
-	"cube.h"
-	"camera.h"
-	"transform.h"
-	"gamemanager.h"
-
-1424784784 source:/home/burntcustard/BlockGameCI224/cube.cpp
-	"cube.h"
-
-1425390917 /home/burntcustard/BlockGameCI224/cube.h
-	<glm/glm.hpp>
-	<GL/glew.h>
-	"transform.h"
-
-1425390917 source:/home/burntcustard/BlockGameCI224/main.cpp
-	<iostream>
-	<SDL2/SDL.h>
-	"window.h"
-	"shader.h"
-	"cube.h"
-	"camera.h"
-	"transform.h"
-	"gamemanager.h"
-
-1424784784 /home/burntcustard/BlockGameCI224/window.h
-	<SDL2/SDL.h>
-	<string>
-
-1424784784 /home/burntcustard/BlockGameCI224/shader.h
-	<string>
-	<GL/glew.h>
-	<iostream>
-	<fstream>
-	"transform.h"
-	"camera.h"
-
-1424784784 /home/burntcustard/BlockGameCI224/transform.h
-	<glm/glm.hpp>
-	<glm/gtx/transform.hpp>
-	"transform.h"
-
-1424784784 /home/burntcustard/BlockGameCI224/camera.h
-	<glm/glm.hpp>
-	<glm/gtx/transform.hpp>
-
-1424784784 /home/burntcustard/BlockGameCI224/gamemanager.h
-	"shader.h"
-	"cube.h"
-	"camera.h"
-	"transform.h"
-	"window.h"
-
-1424784784 source:/home/burntcustard/BlockGameCI224/shader.cpp
-	"shader.h"
-	<iostream>
-	<fstream>
-
-1424784784 source:/home/burntcustard/BlockGameCI224/window.cpp
-	"window.h"
-	<GL/glew.h>
-	<iostream>
-
-1425294510 source:/home/oalister/BlockGameCI224/cube.cpp
-	"cube.h"
-
-1425296132 /home/oalister/BlockGameCI224/cube.h
-	<glm/glm.hpp>
-	<GL/glew.h>
-	"transform.h"
-
-1425296731 source:/home/oalister/BlockGameCI224/main.cpp
-	<iostream>
-	<SDL2/SDL.h>
-	"window.h"
-	"shader.h"
-	"cube.h"
-	"camera.h"
-	"transform.h"
-	"gamemanager.h"
-
-1425294510 /home/oalister/BlockGameCI224/window.h
-	<SDL2/SDL.h>
-	<string>
-
-1424865604 /home/oalister/BlockGameCI224/shader.h
-	<string>
-	<GL/glew.h>
-	<iostream>
-	<fstream>
-	"transform.h"
-	"camera.h"
-
-1424865604 /home/oalister/BlockGameCI224/transform.h
-	<glm/glm.hpp>
-	<glm/gtx/transform.hpp>
-	"transform.h"
-
-1424865604 /home/oalister/BlockGameCI224/camera.h
-	<glm/glm.hpp>
-	<glm/gtx/transform.hpp>
-
-1425294510 /home/oalister/BlockGameCI224/gamemanager.h
-	"shader.h"
-	"cube.h"
-	"camera.h"
-	"transform.h"
-	"window.h"
-
-1424865604 source:/home/oalister/BlockGameCI224/shader.cpp
-	"shader.h"
-	<iostream>
-	<fstream>
-
-1425294510 source:/home/oalister/BlockGameCI224/window.cpp
-	"window.h"
-	<GL/glew.h>
-	<iostream>
-
 1429791634 source:c:\users\john\documents\uni\ci224games\blockgameci224\cube.cpp
 	"cube.h"
 
@@ -193,37 +6,6 @@
 	<glm/glm.hpp>
 	<GL/glew.h>
 	"transform.h"
-
-1429796909 c:\users\john\documents\uni\ci224games\blockgameci224\transform.h
-	<glm/glm.hpp>
-	<glm/gtx/transform.hpp>
-	"transform.h"
-
-1429791635 source:c:\users\john\documents\uni\ci224games\blockgameci224\shader.cpp
-	"shader.h"
-	<iostream>
-	<fstream>
-
-1429796908 c:\users\john\documents\uni\ci224games\blockgameci224\shader.h
-	<string>
-	<GL/glew.h>
-	<iostream>
-	<fstream>
-	"transform.h"
-	"camera.h"
-
-1429796901 c:\users\john\documents\uni\ci224games\blockgameci224\camera.h
-	<glm/glm.hpp>
-	<glm/gtx/transform.hpp>
-
-1429791635 source:c:\users\john\documents\uni\ci224games\blockgameci224\window.cpp
-	"window.h"
-	<GL/glew.h>
-	<iostream>
-
-1429796914 c:\users\john\documents\uni\ci224games\blockgameci224\window.h
-	<SDL2/SDL.h>
-	<string>
 
 1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\glm.hpp
 	"detail/_fixes.hpp"
@@ -554,6 +336,11 @@
 	<OpenGL/glu.h>
 	<GL/glu.h>
 
+1429796909 c:\users\john\documents\uni\ci224games\blockgameci224\transform.h
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+	"transform.h"
+
 1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\gtx\transform.hpp
 	"../glm.hpp"
 	"../gtc/matrix_transform.hpp"
@@ -577,6 +364,32 @@
 	"detail/func_trigonometric.hpp"
 
 1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\gtx\transform.inl
+
+1429791635 source:c:\users\john\documents\uni\ci224games\blockgameci224\shader.cpp
+	"shader.h"
+	<iostream>
+	<fstream>
+
+1429796908 c:\users\john\documents\uni\ci224games\blockgameci224\shader.h
+	<string>
+	<GL/glew.h>
+	<iostream>
+	<fstream>
+	"transform.h"
+	"camera.h"
+
+1429796901 c:\users\john\documents\uni\ci224games\blockgameci224\camera.h
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+
+1429791635 source:c:\users\john\documents\uni\ci224games\blockgameci224\window.cpp
+	"window.h"
+	<GL/glew.h>
+	<iostream>
+
+1429796914 c:\users\john\documents\uni\ci224games\blockgameci224\window.h
+	<SDL2/SDL.h>
+	<string>
 
 1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -892,21 +705,4 @@
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
-
-1429808845 source:c:\users\john\documents\uni\ci224games\blockgameci224\main.cpp
-	<iostream>
-	<SDL2/SDL.h>
-	"window.h"
-	"shader.h"
-	"cube.h"
-	"camera.h"
-	"transform.h"
-	"gamemanager.h"
-
-1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\gamemanager.h
-	"shader.h"
-	"cube.h"
-	"camera.h"
-	"transform.h"
-	"window.h"
 

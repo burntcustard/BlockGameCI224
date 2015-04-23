@@ -64,7 +64,6 @@ int main(int argc, char* argv[])
     SDL_QUIT;
     return 0;
 
-
 }
 
 void handleInput()
