@@ -16,7 +16,7 @@ Transform tCube2;
 
 void handleInput();
 
-int main()
+int main(int argc, char* argv[])
 {
 
     SDL_Init(SDL_INIT_EVERYTHING);
@@ -134,7 +134,6 @@ void handleInput()
          }
       }
 }
-<<<<<<< HEAD
 
 int main()
 {
@@ -181,5 +180,4 @@ int main()
     SDL_QUIT;
     return 0;
 }
-=======
->>>>>>> e3200b3cb5bf9eaef4667a64b200390859c10baa
+
