@@ -186,3 +186,727 @@
 	<GL/glew.h>
 	<iostream>
 
+1429791634 source:c:\users\john\documents\uni\ci224games\blockgameci224\cube.cpp
+	"cube.h"
+
+1429796903 c:\users\john\documents\uni\ci224games\blockgameci224\cube.h
+	<glm/glm.hpp>
+	<GL/glew.h>
+	"transform.h"
+
+1429796909 c:\users\john\documents\uni\ci224games\blockgameci224\transform.h
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+	"transform.h"
+
+1429791635 source:c:\users\john\documents\uni\ci224games\blockgameci224\shader.cpp
+	"shader.h"
+	<iostream>
+	<fstream>
+
+1429796908 c:\users\john\documents\uni\ci224games\blockgameci224\shader.h
+	<string>
+	<GL/glew.h>
+	<iostream>
+	<fstream>
+	"transform.h"
+	"camera.h"
+
+1429796901 c:\users\john\documents\uni\ci224games\blockgameci224\camera.h
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+
+1429791635 source:c:\users\john\documents\uni\ci224games\blockgameci224\window.cpp
+	"window.h"
+	<GL/glew.h>
+	<iostream>
+
+1429796914 c:\users\john\documents\uni\ci224games\blockgameci224\window.h
+	<SDL2/SDL.h>
+	<string>
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\glm.hpp
+	"detail/_fixes.hpp"
+	<cmath>
+	<climits>
+	<cfloat>
+	<limits>
+	<cassert>
+	"fwd.hpp"
+	"./detail/func_trigonometric.hpp"
+	"./detail/func_exponential.hpp"
+	"./detail/func_common.hpp"
+	"./detail/func_packing.hpp"
+	"./detail/func_geometric.hpp"
+	"./detail/func_matrix.hpp"
+	"./detail/func_vector_relational.hpp"
+	"./detail/func_integer.hpp"
+	"./detail/func_noise.hpp"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\_fixes.hpp
+	<cmath>
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\fwd.hpp
+	"detail/type_int.hpp"
+	"detail/type_float.hpp"
+	"detail/type_vec.hpp"
+	"detail/type_mat.hpp"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_int.hpp
+	"setup.hpp"
+	<cstdint>
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\setup.hpp
+	<cassert>
+	<intrin.h>
+	<immintrin.h>
+	<immintrin.h>
+	<smmintrin.h>
+	<pmmintrin.h>
+	<emmintrin.h>
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_float.hpp
+	"setup.hpp"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_vec.hpp
+	"precision.hpp"
+	"type_int.hpp"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\precision.hpp
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_mat.hpp
+	"precision.hpp"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\func_trigonometric.hpp
+	"func_trigonometric.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\func_trigonometric.inl
+	"_vectorize.hpp"
+	<cmath>
+	<limits>
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\_vectorize.hpp
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_vec2.hpp
+	"type_vec.hpp"
+	"_swizzle.hpp"
+	"_swizzle_func.hpp"
+	<initializer_list>
+	<cstddef>
+	"type_vec2.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\_swizzle.hpp
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\_swizzle_func.hpp
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_vec2.inl
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_vec3.hpp
+	"type_vec.hpp"
+	"_swizzle.hpp"
+	"_swizzle_func.hpp"
+	<initializer_list>
+	<cstddef>
+	"type_vec3.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_vec3.inl
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_vec4.hpp
+	"setup.hpp"
+	"type_vec.hpp"
+	"_swizzle.hpp"
+	"_swizzle_func.hpp"
+	<initializer_list>
+	<cstddef>
+	"type_vec4.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_vec4.inl
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\func_exponential.hpp
+	"type_vec1.hpp"
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	<cmath>
+	"func_exponential.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_vec1.hpp
+	"../fwd.hpp"
+	"type_vec.hpp"
+	"_swizzle.hpp"
+	"_swizzle_func.hpp"
+	<initializer_list>
+	<cstddef>
+	"type_vec1.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_vec1.inl
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\func_exponential.inl
+	"func_vector_relational.hpp"
+	"_vectorize.hpp"
+	<limits>
+	<cassert>
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\func_vector_relational.hpp
+	"precision.hpp"
+	"setup.hpp"
+	"func_vector_relational.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\func_vector_relational.inl
+	<limits>
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\func_common.hpp
+	"setup.hpp"
+	"_fixes.hpp"
+	"func_common.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\func_common.inl
+	"func_vector_relational.hpp"
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	"_vectorize.hpp"
+	<limits>
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\func_packing.hpp
+	"type_vec2.hpp"
+	"type_vec4.hpp"
+	"func_packing.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\func_packing.inl
+	"func_common.hpp"
+	"type_half.hpp"
+	"../fwd.hpp"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_half.hpp
+	"setup.hpp"
+	"type_half.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_half.inl
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\func_geometric.hpp
+	"type_vec3.hpp"
+	"func_geometric.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\func_geometric.inl
+	"func_exponential.hpp"
+	"func_common.hpp"
+	"type_vec2.hpp"
+	"type_vec4.hpp"
+	"type_float.hpp"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\func_matrix.hpp
+	"../detail/precision.hpp"
+	"../detail/setup.hpp"
+	"func_matrix.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\func_matrix.inl
+	"../geometric.hpp"
+	"../vec2.hpp"
+	"../vec3.hpp"
+	"../vec4.hpp"
+	"type_mat2x2.hpp"
+	"type_mat2x3.hpp"
+	"type_mat2x4.hpp"
+	"type_mat3x2.hpp"
+	"type_mat3x3.hpp"
+	"type_mat3x4.hpp"
+	"type_mat4x2.hpp"
+	"type_mat4x3.hpp"
+	"type_mat4x4.hpp"
+	<limits>
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\geometric.hpp
+	"detail/func_geometric.hpp"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\vec2.hpp
+	"detail/type_vec2.hpp"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\vec3.hpp
+	"detail/type_vec3.hpp"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\vec4.hpp
+	"detail/type_vec4.hpp"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_mat2x2.hpp
+	"../fwd.hpp"
+	"type_vec2.hpp"
+	"type_mat.hpp"
+	<limits>
+	"type_mat2x2.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_mat2x2.inl
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_mat2x3.hpp
+	"../fwd.hpp"
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_mat.hpp"
+	<limits>
+	"type_mat2x3.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_mat2x3.inl
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_mat2x4.hpp
+	"../fwd.hpp"
+	"type_vec2.hpp"
+	"type_vec4.hpp"
+	"type_mat.hpp"
+	<limits>
+	"type_mat2x4.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_mat2x4.inl
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_mat3x2.hpp
+	"../fwd.hpp"
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_mat.hpp"
+	<limits>
+	"type_mat3x2.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_mat3x2.inl
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_mat3x3.hpp
+	"../fwd.hpp"
+	"type_vec3.hpp"
+	"type_mat.hpp"
+	<limits>
+	"type_mat3x3.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_mat3x3.inl
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_mat3x4.hpp
+	"../fwd.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	"type_mat.hpp"
+	<limits>
+	"type_mat3x4.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_mat3x4.inl
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_mat4x2.hpp
+	"../fwd.hpp"
+	"type_vec2.hpp"
+	"type_vec4.hpp"
+	"type_mat.hpp"
+	<limits>
+	"type_mat4x2.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_mat4x2.inl
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_mat4x3.hpp
+	"../fwd.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	"type_mat.hpp"
+	<limits>
+	"type_mat4x3.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_mat4x3.inl
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_mat4x4.hpp
+	"../fwd.hpp"
+	"type_vec4.hpp"
+	"type_mat.hpp"
+	<initializer_list>
+	<limits>
+	<cstddef>
+	"type_mat4x4.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\type_mat4x4.inl
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\func_integer.hpp
+	"setup.hpp"
+	"func_integer.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\func_integer.inl
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	"type_int.hpp"
+	"_vectorize.hpp"
+	<intrin.h>
+	<limits>
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\func_noise.hpp
+	"type_vec1.hpp"
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"setup.hpp"
+	"func_noise.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\func_noise.inl
+	"../detail/_noise.hpp"
+	"./func_common.hpp"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\detail\_noise.hpp
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\gl\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\gtx\transform.hpp
+	"../glm.hpp"
+	"../gtc/matrix_transform.hpp"
+	"transform.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\gtc\matrix_transform.hpp
+	"../mat4x4.hpp"
+	"../vec2.hpp"
+	"../vec3.hpp"
+	"../vec4.hpp"
+	"matrix_transform.inl"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\mat4x4.hpp
+	"detail/type_mat4x4.hpp"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\gtc\matrix_transform.inl
+	"../geometric.hpp"
+	"../trigonometric.hpp"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\trigonometric.hpp
+	"detail/func_trigonometric.hpp"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\gtx\transform.inl
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_assert.h"
+	"SDL_atomic.h"
+	"SDL_audio.h"
+	"SDL_clipboard.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_filesystem.h"
+	"SDL_joystick.h"
+	"SDL_gamecontroller.h"
+	"SDL_haptic.h"
+	"SDL_hints.h"
+	"SDL_loadso.h"
+	"SDL_log.h"
+	"SDL_messagebox.h"
+	"SDL_mutex.h"
+	"SDL_power.h"
+	"SDL_render.h"
+	"SDL_rwops.h"
+	"SDL_system.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_version.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<math.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_config.h
+	"SDL_platform.h"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_platform.h
+	"AvailabilityMacros.h"
+	"TargetConditionals.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\begin_code.h
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\close_code.h
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_assert.h
+	"SDL_config.h"
+	"begin_code.h"
+	<signal.h>
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_atomic.h
+	"SDL_stdinc.h"
+	"SDL_platform.h"
+	"begin_code.h"
+	<intrin.h>
+	<libkern/OSAtomic.h>
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_endian.h
+	"SDL_stdinc.h"
+	<endian.h>
+	"begin_code.h"
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_atomic.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_clipboard.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	<intrin.h>
+	<intrin.h>
+	<altivec.h>
+	<mmintrin.h>
+	<mm3dnow.h>
+	<xmmintrin.h>
+	<emmintrin.h>
+	"begin_code.h"
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_gamecontroller.h"
+	"SDL_quit.h"
+	"SDL_gesture.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_pixels.h
+	"begin_code.h"
+	"close_code.h"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_rect.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_pixels.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_surface.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_blendmode.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_blendmode.h
+	"begin_code.h"
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keycode.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_keycode.h
+	"SDL_stdinc.h"
+	"SDL_scancode.h"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_scancode.h
+	"SDL_stdinc.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_gamecontroller.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_gesture.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_touch.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_filesystem.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_haptic.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_hints.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_log.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_messagebox.h
+	"SDL_stdinc.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_power.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_render.h
+	"SDL_stdinc.h"
+	"SDL_rect.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_system.h
+	"SDL_stdinc.h"
+	"SDL_keyboard.h"
+	"SDL_render.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\sdl2\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429801042 source:c:\users\john\documents\uni\ci224games\blockgameci224\main.cpp
+	<iostream>
+	<SDL2/SDL.h>
+	"window.h"
+	"shader.h"
+	"cube.h"
+	"camera.h"
+	"transform.h"
+	"gamemanager.h"
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\gamemanager.h
+	"shader.h"
+	"cube.h"
+	"camera.h"
+	"transform.h"
+	"window.h"
+
