@@ -1,13 +1,10 @@
 #include "input.h"
-
 #include <SDL2/SDL.h>
 
 #include <iostream>
-#include <vector>
 
-std::vector<bool> getInput()
+bool* getInput(bool* keysHeld)
 {
-    std::vector<bool> keysHeld;
     SDL_Event event;
     if (SDL_PollEvent(&event))
     {

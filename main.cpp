@@ -13,17 +13,17 @@
 using namespace std;
 
 bool gameRunning = true;
+bool keysHeld[323] = {false}; // List of keys all set to false at start
+
 Camera camera;
 Transform tCube;
 Transform tCube2;
 
 void handleInput()
 {
-    vector<bool> keys = getInput();
-    for( std::vector<bool>::const_iterator i = keys.begin(); i != keys.end(); ++i)
-        cout << *i << endl;
-    //if (keys[SDLK_ESCAPE])
-    //    gameRunning = false;
+    bool keys[323] = { getInput(keysHeld) };
+    if (keys[SDLK_ESCAPE])
+        gameRunning = false;
     /*
     SDL_Event event;
     if (SDL_PollEvent(&event))
