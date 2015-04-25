@@ -10,6 +10,7 @@
 
 using namespace std;
 
+bool gameRunning = true;
 Camera camera;
 Transform tCube;
 Transform tCube2;
@@ -21,7 +22,7 @@ int main(int argc, char* argv[])
 
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_ShowCursor(0);
-    Window window(1280,720, "game");
+    Window window(960,720, "game");
 
    // GameManager game();
 
@@ -41,14 +42,14 @@ int main(int argc, char* argv[])
     cube.t.GetPos().x=4;
     cube.t.GetPos().z=4;
 
-    while(!window.IsClosed())
+    while(!window.IsClosed() && gameRunning)
     {
         glClearColor(0.0f, 0.15f, 0.3f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         handleInput();
 
-        cout << cube.t.GetPos().x << endl;
+        // cout << cube.t.GetPos().x << endl;
         tCube.GetRot().x+=2;
    //     tCube.GetPos().y+=0.01;
         tCube2.GetRot().z+=2;
@@ -71,13 +72,14 @@ void handleInput()
     SDL_Event event;
     if (SDL_PollEvent(&event))
       {
-
-
          if (event.type == SDL_KEYDOWN)
          {
-         //   cout << "keydown" << endl;
+            cout << "keydown: " << event.key.keysym.sym << endl;
             switch (event.key.keysym.sym)
             {
+               case SDLK_ESCAPE:
+                  gameRunning = false;
+               break;
                case SDLK_w:
                   camera.MoveForward(0.1);
                   //if(abs(camera.GetPos().x-cube.t.GetPos().x)<=1 && abs(camera.GetPos().y-cube.t.GetPos().y)<=1 && abs(camera.GetPos().z-cube.t.GetPos().z)<=1)
