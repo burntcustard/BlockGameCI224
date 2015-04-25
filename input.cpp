@@ -19,6 +19,8 @@ bool* getInput(bool* keysHeld)
             std::cout << "keyup: " << event.key.keysym.sym << std::endl;
             keysHeld[event.key.keysym.sym] = false;
         }
+        return keysHeld;
+    } else {
+        return false;
     }
-    return keysHeld;
 };
