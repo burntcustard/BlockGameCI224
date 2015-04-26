@@ -29,9 +29,6 @@ void handleInput()
     // Update list of pressed keys with getKeys:
     keys = gameInput.getKeys();
 
-    // Get mouse cursor movement changes:
-    mouse = gameInput.getMouse();
-
     // Loop through all keys that are pressed
     for (auto key : keys)
     {
@@ -49,6 +46,14 @@ void handleInput()
             }
         }
     }
+
+    // Get mouse cursor movement changes:
+    mouse = gameInput.getMouse();
+
+    // Rotate camera
+    if (mouse.first > 0 | mouse.first < 0) camera.RotateY(mouse.first);
+    camera.Pitch(mouse.second);
+
 
     /*
 
