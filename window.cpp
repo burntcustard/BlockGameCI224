@@ -22,7 +22,7 @@ Window::Window(int width, int height, const std::string& title)
     );
     glContext = SDL_GL_CreateContext(window);
 
-    GLenum status =glewInit();
+    GLenum status = glewInit();
 
     if(status != GLEW_OK)
     {
@@ -47,14 +47,4 @@ bool Window::IsClosed()
 void Window::Update()
 {
     SDL_GL_SwapWindow(window);
-
-    SDL_Event e;
-
-    while(SDL_PollEvent(&e))
-    {
-        if(e.type==SDL_QUIT)
-        {
-            _isClosed=true;
-        }
-    }
 }
