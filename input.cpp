@@ -6,7 +6,7 @@
 bool* getInput(bool* keysHeld)
 {
     SDL_Event event;
-    if (SDL_PollEvent(&event))
+    while (SDL_PollEvent(&event))
     {
         if (event.type == SDL_KEYDOWN)
         {
@@ -19,8 +19,6 @@ bool* getInput(bool* keysHeld)
             std::cout << "keyup: " << event.key.keysym.sym << std::endl;
             keysHeld[event.key.keysym.sym] = false;
         }
-        return keysHeld;
-    } else {
-        return false;
     }
+    return keysHeld;
 };
