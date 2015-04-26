@@ -37,6 +37,7 @@ void handleInput()
                 case SDLK_ESCAPE: gameRunning = false;     break;
                 case SDLK_a     : camera.MoveRight(0.1);   break;
                 case SDLK_d     : camera.MoveRight(-0.1);  break;
+                default: break; // No useful keys detected in list of pressed keys
             }
         }
     }

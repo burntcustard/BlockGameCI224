@@ -1,23 +1,25 @@
 #include "input.h"
 #include <SDL2/SDL.h>
 
-#include <iostream>
-
 std::map<int, bool> getInput(std::map<int, bool> keys)
 {
+    // !WARNING! Can only use one SDL_PollEvent otherwise they interfere with eachother.
     SDL_Event event;
     while (SDL_PollEvent(&event))
     {
         if (event.type == SDL_KEYDOWN)
         {
-            std::cout << "keydown: " << SDL_GetKeyName(event.key.keysym.sym) << std::endl;
             keys[event.key.keysym.sym] = true;
         }
 
         if (event.type == SDL_KEYUP)
         {
-            std::cout << "keyup: " << SDL_GetKeyName(event.key.keysym.sym) << std::endl;
             keys[event.key.keysym.sym] = false;
+        }
+
+        if (event.type == SDL_QUIT) // Triggered on things like alt+f4
+        {
+            keys[SDLK_ESCAPE] = true; // Makes esc basically pressed, kinda dodgy.
         }
     }
     return keys;
