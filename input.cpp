@@ -1,24 +1,25 @@
 #include "input.h"
 #include <SDL2/SDL.h>
 
+#include <map>
 #include <iostream>
 
-bool* getInput(bool* keysHeld)
+std::map<int, bool> getInput(std::map<int, bool> keys)
 {
     SDL_Event event;
     while (SDL_PollEvent(&event))
     {
         if (event.type == SDL_KEYDOWN)
         {
-            std::cout << "keydown: " << event.key.keysym.sym << std::endl;
-            keysHeld[event.key.keysym.sym] = true;
+            std::cout << "keydown: " << SDL_GetKeyName(event.key.keysym.sym) << std::endl;
+            keys[event.key.keysym.sym] = true;
         }
 
         if (event.type == SDL_KEYUP)
         {
-            std::cout << "keyup: " << event.key.keysym.sym << std::endl;
-            keysHeld[event.key.keysym.sym] = false;
+            std::cout << "keyup: " << SDL_GetKeyName(event.key.keysym.sym) << std::endl;
+            keys[event.key.keysym.sym] = false;
         }
     }
-    return keysHeld;
+    return keys;
 };

@@ -7,13 +7,13 @@
 #include "camera.h"
 #include "transform.h"
 #include "gamemanager.h"
-#include <vector>
+#include <map>
 #include "input.h"
 
 using namespace std;
 
 bool gameRunning = true;
-bool keysHeld[323] = {false}; // List of keys all set to false at start
+std::map<int, bool> keys; // List of keys being pressed.
 
 Camera camera;
 Transform tCube;
@@ -21,12 +21,21 @@ Transform tCube2;
 
 void handleInput()
 {
-    bool keys[323] = { getInput(keysHeld) };
-    if (keys[SDLK_ESCAPE])
+    keys = getInput(keys);
+    if (keys[SDLK_a])
+    {
+        cout << "Pressed a" << endl;
         gameRunning = false;
+    }
+    if (keys[SDLK_ESCAPE])
+    {
+        cout << "Pressed escape!" << endl;
+        gameRunning = false;
+    }
     /*
+
     SDL_Event event;
-    if (SDL_PollEvent(&event))
+    while (SDL_PollEvent(&event))
       {
          if (event.type == SDL_KEYDOWN)
          {
@@ -90,6 +99,7 @@ void handleInput()
          }
       }
       */
+
 }
 
 int main(int argc, char* argv[])
