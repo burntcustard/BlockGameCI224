@@ -21,19 +21,15 @@ class Camera
 		return _perspective * glm::lookAt(_cameraPosition, _cameraPosition + forward, up);
 	}
 
-	void MoveForward(float amount)
+	void MoveZ(float amount)
 	{
 		_cameraPosition.x += forward.x * amount;
 		_cameraPosition.z += forward.z * amount;
-		std::cout << "New camera position: " << std::endl;
-		std::cout << "X: " << _cameraPosition.x << std::endl;
-		std::cout << "Y: " << _cameraPosition.y << std::endl;
-		std::cout << "Z: " << _cameraPosition.z << std::endl;
 	}
 
     inline glm::vec3& GetPos() {return _cameraPosition;}
 
-	void MoveRight(float amount)
+	void MoveX(float amount)
 	{
 	    glm::vec3 moved = glm::cross(up, forward) * amount;
 		_cameraPosition.x += moved.x;

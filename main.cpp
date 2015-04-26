@@ -9,7 +9,9 @@
 #include "gamemanager.h"
 #include <map>
 #include "input.h"
-#include<glm/glm.hpp>
+#include <vector>
+#include <utility>
+#include <memory>
 
 using namespace std;
 
@@ -19,13 +21,18 @@ input gameInput;
 Camera camera;
 Transform tCube;
 Transform tCube2;
-void drawGame(Shader &shader, Cube &cube, Window &window);
+void drawGame(Shader &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &window);
 
 std::map<int, bool> keys;  // List of keycodes with true/false for pressed/not pressed.
-std::map<char, int> mouse; // X and Y movement of mouse cursor
+std::map<char, int> mouse; // X and Y movement of mouse cursor.
 
 void handleInput()
 {
+    float playerMoveSpeed = 0.1; // Player/cameras movement speed.
+    float lookSensitivity = 1.9; // Sensitivity of camera movement controlled by mouse.
+    int playerXMovement = 0;     // Player/camera side strafing.
+    int playerZMovement = 0;     // Player/camera forward/back movement.
+
     // Update inputs and handle events
     gameInput.updateInput();
 
@@ -42,23 +49,37 @@ void handleInput()
             // Check if that key does something important:
             switch (key.first)
             {
-                case SDLK_ESCAPE: gameRunning = false;     break;
-                case SDLK_w     : camera.MoveForward(0.1);  break;
-                case SDLK_a     : camera.MoveRight(0.1);  break;
-                case SDLK_s     : camera.MoveForward(-0.1);   break;
-                case SDLK_d     : camera.MoveRight(-0.1);  break;
+                case SDLK_ESCAPE: gameRunning = false;  break;
+                case SDLK_w     : playerZMovement =  1; break; // Forward
+                case SDLK_a     : playerXMovement =  1; break; // Left
+                case SDLK_s     : playerZMovement = -1; break; // Back
+                case SDLK_d     : playerXMovement = -1; break; // Right
                 default: break; // No useful keys detected in list of pressed keys
             }
         }
     }
 
+    if (playerXMovement && playerZMovement)
+    // Diagonal movement - stops you moving too fast when going forward AND sideways
+    {
+        camera.MoveZ((playerZMovement * playerMoveSpeed) / sqrt(2));
+        camera.MoveX((playerXMovement * playerMoveSpeed) / sqrt(2));
+    }
+    else
+    // Simple one direction movement
+    {
+        camera.MoveZ(playerZMovement * playerMoveSpeed);
+        camera.MoveX(playerXMovement * playerMoveSpeed);
+    }
+
     // Get mouse cursor movement changes:
     mouse = gameInput.getMouse();
-    cout << "Mouse moved X: " << mouse['X'] << ", Y: " << mouse['Y'] << endl;
+    // If mouse has moved, spit it into console:
+    if (mouse['X'] | mouse['Y']) cout << "Mouse moved X: " << mouse['X'] << ", Y: " << mouse['Y'] << endl;
 
     // Rotate camera
-    camera.RotateX(mouse['X']); // Look left/right
-    camera.RotateY(mouse['Y']); // Look up/down
+    camera.RotateX(mouse['X'] * lookSensitivity); // Look left/right
+    camera.RotateY(mouse['Y'] * lookSensitivity); // Look up/down
 
     /*
 
@@ -133,8 +154,8 @@ void handleInput()
 int main(int argc, char* argv[])
 {
     SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_ShowCursor(0); // Hide cursor.
-    SDL_SetRelativeMouseMode(SDL_TRUE); // Don't move system cursor (stops it getting stuck at edge of window).
+    SDL_ShowCursor(0); // Hide mouse cursor
+    SDL_SetRelativeMouseMode(SDL_TRUE); // Capture mouse (prevents stuck when hitting window edge)
     Window window(960,720, "game");
 
    // GameManager game();
@@ -154,6 +175,14 @@ int main(int argc, char* argv[])
     tCube.GetRot().z=90;
     cube.t.GetPos().x=4;
     cube.t.GetPos().z=4;
+    std::vector<std::shared_ptr<Cube>> gameworld; //vector<std::shared_ptr<Cube>>
+    gameworld.push_back(std::make_shared<Cube>());
+    gameworld.push_back(std::make_shared<Cube>());
+    gameworld[0]->t.GetPos().z=5;
+    gameworld[0]->t.GetPos().x=3;
+    gameworld[1]->t.GetPos().z=4;
+    gameworld[1]->t.GetPos().x=0;
+
 
     while(!window.IsClosed() && gameRunning)
     {
@@ -165,7 +194,7 @@ int main(int argc, char* argv[])
    //     tCube.GetPos().y+=0.01;
         tCube2.GetRot().z+=2;
       //  camera.Pitch(1);
-        drawGame(shader, cube, window);
+        drawGame(shader, gameworld, window);
 
     }
     SDL_QUIT;
@@ -174,13 +203,15 @@ int main(int argc, char* argv[])
 
 
 //draw everything
-void drawGame(Shader &shader, Cube &cube, Window &window){
+void drawGame(Shader &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &window){
     glClearColor(0.0f, 0.15f, 0.3f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    shader.Update(cube.t,camera);
-    cube.Draw();
-    shader.Update(tCube2,camera);
-    cube.Draw();
+    shader.Update(gameworld[1]->t,camera);
+    gameworld[1]->Draw();
+    shader.Update(gameworld[0]->t,camera);
+    gameworld[0]->Draw();
+    //shader.Update(tCube2,camera);
+    //cube.Draw();
     shader.Bind();
     window.Update();
 }
