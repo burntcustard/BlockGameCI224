@@ -24,10 +24,15 @@ Transform tCube2;
 void drawGame(Shader &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &window);
 
 std::map<int, bool> keys;  // List of keycodes with true/false for pressed/not pressed.
-std::map<char, int> mouse; // X and Y movement of mouse cursor
+std::map<char, int> mouse; // X and Y movement of mouse cursor.
 
 void handleInput()
 {
+    float playerMoveSpeed = 0.1; // Player/cameras movement speed.
+    float lookSensitivity = 1.9; // Sensitivity of camera movement controlled by mouse.
+    int playerXMovement = 0;     // Player/camera side strafing.
+    int playerZMovement = 0;     // Player/camera forward/back movement.
+
     // Update inputs and handle events
     gameInput.updateInput();
 
@@ -44,22 +49,37 @@ void handleInput()
             // Check if that key does something important:
             switch (key.first)
             {
-                case SDLK_ESCAPE: gameRunning = false;     break;
-                case SDLK_a     : camera.MoveRight(0.1);   break;
-                case SDLK_d     : camera.MoveRight(-0.1);  break;
+                case SDLK_ESCAPE: gameRunning = false;  break;
+                case SDLK_w     : playerZMovement =  1; break; // Forward
+                case SDLK_a     : playerXMovement =  1; break; // Left
+                case SDLK_s     : playerZMovement = -1; break; // Back
+                case SDLK_d     : playerXMovement = -1; break; // Right
                 default: break; // No useful keys detected in list of pressed keys
             }
         }
     }
 
+    if (playerXMovement && playerZMovement)
+    // Diagonal movement - stops you moving too fast when going forward AND sideways
+    {
+        camera.MoveZ((playerZMovement * playerMoveSpeed) / sqrt(2));
+        camera.MoveX((playerXMovement * playerMoveSpeed) / sqrt(2));
+    }
+    else
+    // Simple one direction movement
+    {
+        camera.MoveZ(playerZMovement * playerMoveSpeed);
+        camera.MoveX(playerXMovement * playerMoveSpeed);
+    }
+
     // Get mouse cursor movement changes:
     mouse = gameInput.getMouse();
-    cout << "Mouse moved X: " << mouse['X'] << ", Y: " << mouse['Y'] << endl;
+    // If mouse has moved, spit it into console:
+    if (mouse['X'] | mouse['Y']) cout << "Mouse moved X: " << mouse['X'] << ", Y: " << mouse['Y'] << endl;
 
     // Rotate camera
-    camera.RotateY(mouse['X']);
-    camera.Pitch(mouse['Y']);
-
+    camera.RotateX(mouse['X'] * lookSensitivity); // Look left/right
+    camera.RotateY(mouse['Y'] * lookSensitivity); // Look up/down
 
     /*
 
@@ -134,7 +154,8 @@ void handleInput()
 int main(int argc, char* argv[])
 {
     SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_ShowCursor(0);
+    SDL_ShowCursor(0); // Hide mouse cursor
+    SDL_SetRelativeMouseMode(SDL_TRUE); // Capture mouse (prevents stuck when hitting window edge)
     Window window(960,720, "game");
 
    // GameManager game();
