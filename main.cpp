@@ -14,13 +14,15 @@
 using namespace std;
 
 bool gameRunning = true;
-std::map<int, bool> keys;  // List of keycodes with true/false for pressed/not pressed.
-std::map<char, int> mouse; // X and Y movement of mouse cursor
 
+input gameInput;
 Camera camera;
 Transform tCube;
 Transform tCube2;
-input gameInput;
+void drawGame(Shader &shader, Cube &cube, Window &window);
+
+std::map<int, bool> keys;  // List of keycodes with true/false for pressed/not pressed.
+std::map<char, int> mouse; // X and Y movement of mouse cursor
 
 void handleInput()
 {
@@ -155,8 +157,6 @@ int main(int argc, char* argv[])
 
     while(!window.IsClosed() && gameRunning)
     {
-        glClearColor(0.0f, 0.15f, 0.3f,1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
 
         handleInput();
 
@@ -165,14 +165,22 @@ int main(int argc, char* argv[])
    //     tCube.GetPos().y+=0.01;
         tCube2.GetRot().z+=2;
       //  camera.Pitch(1);
+        drawGame(shader, cube, window);
 
-        shader.Update(cube.t,camera);
-        cube.Draw();
-        shader.Update(tCube2,camera);
-        cube2.Draw();
-        shader.Bind();
-        window.Update();
     }
     SDL_QUIT;
     return 0;
+}
+
+
+//draw everything
+void drawGame(Shader &shader, Cube &cube, Window &window){
+    glClearColor(0.0f, 0.15f, 0.3f,1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+    shader.Update(cube.t,camera);
+    cube.Draw();
+    shader.Update(tCube2,camera);
+    cube.Draw();
+    shader.Bind();
+    window.Update();
 }
