@@ -22,7 +22,8 @@ class Camera
 
 	void MoveForward(float amt)
 	{
-		_cameraPosition += forward * amt;
+		_cameraPosition.x += forward.x * amt;
+		_cameraPosition.z += forward.z * amt;
 	}
 
     inline glm::vec3& GetPos() {return _cameraPosition;}

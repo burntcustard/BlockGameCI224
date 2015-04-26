@@ -38,6 +38,7 @@ void handleInput()
                 case SDLK_ESCAPE: gameRunning = false;     break;
                 case SDLK_a     : camera.MoveRight(0.1);   break;
                 case SDLK_d     : camera.MoveRight(-0.1);  break;
+                case SDLK_w     : camera.MoveForward(0.1); break;
                 default: break; // No useful keys detected in list of pressed keys
             }
         }
@@ -154,6 +155,8 @@ int main(int argc, char* argv[])
     return 0;
 }
 
+
+//draw everything
 void drawGame(Shader &shader, Cube &cube, Window &window){
     glClearColor(0.0f, 0.15f, 0.3f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT);

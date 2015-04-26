@@ -739,7 +739,7 @@
 	"transform.h"
 	"camera.h"
 
-1430065140 /home/oalister/game/BlockGameCI224/camera.h
+1430067626 /home/oalister/game/BlockGameCI224/camera.h
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
 
@@ -751,4 +751,23 @@
 1430065140 /home/oalister/game/BlockGameCI224/window.h
 	<SDL2/SDL.h>
 	<string>
+
+1430067603 source:/home/oalister/game/BlockGameCI224/main.cpp
+	<iostream>
+	<SDL2/SDL.h>
+	"window.h"
+	"shader.h"
+	"cube.h"
+	"camera.h"
+	"transform.h"
+	"gamemanager.h"
+	<map>
+	"input.h"
+
+1430065140 /home/oalister/game/BlockGameCI224/gamemanager.h
+	"shader.h"
+	"cube.h"
+	"camera.h"
+	"transform.h"
+	"window.h"
 
