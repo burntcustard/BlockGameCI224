@@ -21,11 +21,6 @@ Transform tCube2;
 
 void handleInput()
 {
-    SDL_Event event;
-    while (SDL_PollEvent(&event))
-    {
-        cout << "EVENT!" << endl;
-    }
     bool keys[323] = { getInput(keysHeld) };
     if (keys[SDLK_ESCAPE])
         gameRunning = false;
