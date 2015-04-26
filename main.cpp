@@ -13,17 +13,23 @@
 using namespace std;
 
 bool gameRunning = true;
-std::map<int, bool> keys; // List of keys being pressed.
 
+input gameInput;
 Camera camera;
 Transform tCube;
 Transform tCube2;
 void drawGame(Shader &shader, Cube &cube, Window &window);
 
+std::map<int, bool> keys;  // List of keycodes with true/false for pressed/not pressed.
+std::map<char, int> mouse; // X and Y movement of mouse cursor
+
 void handleInput()
 {
-    // Update list of pressed keys with getInput:
-    keys = getInput(keys);
+    // Update inputs and handle events
+    gameInput.updateInput();
+
+    // Update list of pressed keys with getKeys:
+    keys = gameInput.getKeys();
 
     // Loop through all keys that are pressed
     for (auto key : keys)
@@ -38,11 +44,19 @@ void handleInput()
                 case SDLK_ESCAPE: gameRunning = false;     break;
                 case SDLK_a     : camera.MoveRight(0.1);   break;
                 case SDLK_d     : camera.MoveRight(-0.1);  break;
-                case SDLK_w     : camera.MoveForward(0.1); break;
                 default: break; // No useful keys detected in list of pressed keys
             }
         }
     }
+
+    // Get mouse cursor movement changes:
+    mouse = gameInput.getMouse();
+    cout << "Mouse moved X: " << mouse['X'] << ", Y: " << mouse['Y'] << endl;
+
+    // Rotate camera
+    camera.RotateY(mouse['X']);
+    camera.Pitch(mouse['Y']);
+
 
     /*
 
