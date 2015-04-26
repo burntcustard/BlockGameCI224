@@ -9,6 +9,7 @@
 #include "gamemanager.h"
 #include <map>
 #include "input.h"
+#include<glm/glm.hpp>
 
 using namespace std;
 
@@ -42,7 +43,9 @@ void handleInput()
             switch (key.first)
             {
                 case SDLK_ESCAPE: gameRunning = false;     break;
-                case SDLK_a     : camera.MoveRight(0.1);   break;
+                case SDLK_w     : camera.MoveForward(0.1);  break;
+                case SDLK_a     : camera.MoveRight(0.1);  break;
+                case SDLK_s     : camera.MoveForward(-0.1);   break;
                 case SDLK_d     : camera.MoveRight(-0.1);  break;
                 default: break; // No useful keys detected in list of pressed keys
             }
@@ -54,9 +57,8 @@ void handleInput()
     cout << "Mouse moved X: " << mouse['X'] << ", Y: " << mouse['Y'] << endl;
 
     // Rotate camera
-    camera.RotateY(mouse['X']);
-    camera.Pitch(mouse['Y']);
-
+    camera.RotateX(mouse['X']); // Look left/right
+    camera.RotateY(mouse['Y']); // Look up/down
 
     /*
 
@@ -131,7 +133,8 @@ void handleInput()
 int main(int argc, char* argv[])
 {
     SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_ShowCursor(0);
+    SDL_ShowCursor(0); // Hide cursor.
+    SDL_SetRelativeMouseMode(SDL_TRUE); // Don't move system cursor (stops it getting stuck at edge of window).
     Window window(960,720, "game");
 
    // GameManager game();
