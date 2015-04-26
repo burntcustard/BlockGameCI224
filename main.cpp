@@ -9,6 +9,9 @@
 #include "gamemanager.h"
 #include <map>
 #include "input.h"
+#include <vector>
+#include <utility>
+#include <memory>
 
 using namespace std;
 
@@ -18,7 +21,7 @@ input gameInput;
 Camera camera;
 Transform tCube;
 Transform tCube2;
-void drawGame(Shader &shader, Cube &cube, Window &window);
+void drawGame(Shader &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &window);
 
 std::map<int, bool> keys;  // List of keycodes with true/false for pressed/not pressed.
 std::map<char, int> mouse; // X and Y movement of mouse cursor
@@ -151,6 +154,14 @@ int main(int argc, char* argv[])
     tCube.GetRot().z=90;
     cube.t.GetPos().x=4;
     cube.t.GetPos().z=4;
+    std::vector<std::shared_ptr<Cube>> gameworld; //vector<std::shared_ptr<Cube>>
+    gameworld.push_back(std::make_shared<Cube>());
+    gameworld.push_back(std::make_shared<Cube>());
+    gameworld[0]->t.GetPos().z=5;
+    gameworld[0]->t.GetPos().x=3;
+    gameworld[1]->t.GetPos().z=4;
+    gameworld[1]->t.GetPos().x=0;
+
 
     while(!window.IsClosed() && gameRunning)
     {
@@ -162,7 +173,7 @@ int main(int argc, char* argv[])
    //     tCube.GetPos().y+=0.01;
         tCube2.GetRot().z+=2;
       //  camera.Pitch(1);
-        drawGame(shader, cube, window);
+        drawGame(shader, gameworld, window);
 
     }
     SDL_QUIT;
@@ -171,13 +182,15 @@ int main(int argc, char* argv[])
 
 
 //draw everything
-void drawGame(Shader &shader, Cube &cube, Window &window){
+void drawGame(Shader &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &window){
     glClearColor(0.0f, 0.15f, 0.3f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    shader.Update(cube.t,camera);
-    cube.Draw();
-    shader.Update(tCube2,camera);
-    cube.Draw();
+    shader.Update(gameworld[1]->t,camera);
+    gameworld[1]->Draw();
+    shader.Update(gameworld[0]->t,camera);
+    gameworld[0]->Draw();
+    //shader.Update(tCube2,camera);
+    //cube.Draw();
     shader.Bind();
     window.Update();
 }
