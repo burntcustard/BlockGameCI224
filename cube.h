@@ -23,11 +23,11 @@ class Cube
 
         void Draw();
         Transform t;
-
+        Cube(const Cube& other);
         virtual ~Cube();
     protected:
     private:
-        Cube(const Cube& other);
+
         void operator=(const Cube& other);
 
         enum
