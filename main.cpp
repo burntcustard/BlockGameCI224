@@ -13,16 +13,24 @@
 using namespace std;
 
 bool gameRunning = true;
-std::map<int, bool> keys; // List of keys being pressed.
+std::map<int, bool> keys;  // List of keycodes with true/false for pressed/not pressed.
+std::pair<int, int> mouse; // X and Y movement of mouse cursor
 
 Camera camera;
 Transform tCube;
 Transform tCube2;
+input gameInput;
 
 void handleInput()
 {
-    // Update list of pressed keys with getInput:
-    keys = getInput(keys);
+    // Update inputs and handle events
+    gameInput.updateInput();
+
+    // Update list of pressed keys with getKeys:
+    keys = gameInput.getKeys();
+
+    // Get mouse cursor movement changes:
+    mouse = gameInput.getMouse();
 
     // Loop through all keys that are pressed
     for (auto key : keys)
