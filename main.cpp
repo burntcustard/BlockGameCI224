@@ -21,17 +21,26 @@ Transform tCube2;
 
 void handleInput()
 {
+    // Update list of pressed keys with getInput:
     keys = getInput(keys);
-    if (keys[SDLK_a])
+
+    // Loop through all keys that are pressed
+    for (auto key : keys)
     {
-        cout << "Pressed a" << endl;
-        gameRunning = false;
+        if (key.second) // If second value in map (the bool) = true (i.e. if keypressed)
+        {
+            // Show the name of the key in console:
+            cout << "Key down: " << SDL_GetKeyName(key.first) << endl;
+            // Check if that key does something important:
+            switch (key.first)
+            {
+                case SDLK_ESCAPE: gameRunning = false;     break;
+                case SDLK_a     : camera.MoveRight(0.1);   break;
+                case SDLK_d     : camera.MoveRight(-0.1);  break;
+            }
+        }
     }
-    if (keys[SDLK_ESCAPE])
-    {
-        cout << "Pressed escape!" << endl;
-        gameRunning = false;
-    }
+
     /*
 
     SDL_Event event;

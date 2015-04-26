@@ -1,7 +1,6 @@
 #include "input.h"
 #include <SDL2/SDL.h>
 
-#include <map>
 #include <iostream>
 
 std::map<int, bool> getInput(std::map<int, bool> keys)
