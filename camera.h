@@ -20,16 +20,16 @@ class Camera
 		return _perspective * glm::lookAt(_cameraPosition, _cameraPosition + forward, up);
 	}
 
-	void MoveForward(float amt)
+	void MoveForward(float amount)
 	{
-		_cameraPosition += forward * amt;
+		_cameraPosition += forward * amount;
 	}
 
     inline glm::vec3& GetPos() {return _cameraPosition;}
 
-	void MoveRight(float amt)
+	void MoveRight(float amount)
 	{
-		_cameraPosition += glm::cross(up, forward) * amt;
+		_cameraPosition += glm::cross(up, forward) * amount;
 	}
 
 	void Pitch(float angle)
