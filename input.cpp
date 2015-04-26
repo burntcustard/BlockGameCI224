@@ -27,9 +27,25 @@ void input::updateInput()
             keys[event.key.keysym.sym] = false;
         }
 
+        // Button on mouse pressed
+        if (event.type == SDL_MOUSEBUTTONDOWN)
+        {
+            // Left mouse button pressed
+            if (event.button.button == SDL_BUTTON_LEFT)
+            {
+
+            }
+            // Right mouse button pressed
+            if (event.button.button == SDL_BUTTON_RIGHT)
+            {
+
+            }
+        }
+
         if (event.type == SDL_MOUSEMOTION)
         {
-            mouse = std::make_pair(event.motion.xrel/2, event.motion.yrel/2);
+            mouse['X'] = event.motion.xrel;
+            mouse['Y'] = event.motion.yrel;
         }
 
         if (event.type == SDL_QUIT) // Triggered on things like alt+f4
@@ -44,7 +60,9 @@ std::map<int, bool> input::getKeys()
     return keys;
 }
 
-std::pair<int, int> input::getMouse()
+std::map<char, int> input::getMouse()
 {
-    return mouse;
+    std::map<char, int> mouseMoved = mouse;
+    mouse.clear();
+    return mouseMoved;
 }

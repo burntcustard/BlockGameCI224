@@ -14,7 +14,7 @@ using namespace std;
 
 bool gameRunning = true;
 std::map<int, bool> keys;  // List of keycodes with true/false for pressed/not pressed.
-std::pair<int, int> mouse; // X and Y movement of mouse cursor
+std::map<char, int> mouse; // X and Y movement of mouse cursor
 
 Camera camera;
 Transform tCube;
@@ -49,10 +49,11 @@ void handleInput()
 
     // Get mouse cursor movement changes:
     mouse = gameInput.getMouse();
+    cout << "Mouse moved X: " << mouse['X'] << ", Y: " << mouse['Y'] << endl;
 
     // Rotate camera
-    if (mouse.first > 0 | mouse.first < 0) camera.RotateY(mouse.first);
-    camera.Pitch(mouse.second);
+    camera.RotateY(mouse['X']);
+    camera.Pitch(mouse['Y']);
 
 
     /*
