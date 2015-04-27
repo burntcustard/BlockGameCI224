@@ -44,6 +44,7 @@
 			<Add library="GLEW" />
 			<Add library="SDL2" />
 		</Linker>
+		<Unit filename="camera.cpp" />
 		<Unit filename="camera.h" />
 		<Unit filename="cube.cpp" />
 		<Unit filename="cube.h" />

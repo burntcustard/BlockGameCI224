@@ -2,7 +2,7 @@
 1429791634 source:c:\users\john\documents\uni\ci224games\blockgameci224\cube.cpp
 	"cube.h"
 
-1429796903 c:\users\john\documents\uni\ci224games\blockgameci224\cube.h
+1430090423 c:\users\john\documents\uni\ci224games\blockgameci224\cube.h
 	<glm/glm.hpp>
 	<GL/glew.h>
 	"transform.h"
@@ -365,7 +365,7 @@
 
 1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\gtx\transform.inl
 
-1429791635 source:c:\users\john\documents\uni\ci224games\blockgameci224\shader.cpp
+1430167614 source:c:\users\john\documents\uni\ci224games\blockgameci224\shader.cpp
 	"shader.h"
 	<iostream>
 	<fstream>
@@ -378,16 +378,16 @@
 	"transform.h"
 	"camera.h"
 
-1429796901 c:\users\john\documents\uni\ci224games\blockgameci224\camera.h
+1430168407 c:\users\john\documents\uni\ci224games\blockgameci224\camera.h
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
 
-1429791635 source:c:\users\john\documents\uni\ci224games\blockgameci224\window.cpp
+1430072625 source:c:\users\john\documents\uni\ci224games\blockgameci224\window.cpp
 	"window.h"
 	<GL/glew.h>
 	<iostream>
 
-1429796914 c:\users\john\documents\uni\ci224games\blockgameci224\window.h
+1430023305 c:\users\john\documents\uni\ci224games\blockgameci224\window.h
 	<SDL2/SDL.h>
 	<string>
 
@@ -1484,4 +1484,36 @@
 
 1430075097 /home/oalister/BlockGameCI224/input.h
 	<map>
+
+1430158968 source:c:\users\john\documents\uni\ci224games\blockgameci224\input.cpp
+	"input.h"
+	<SDL2/SDL.h>
+
+1430158968 c:\users\john\documents\uni\ci224games\blockgameci224\input.h
+	<map>
+
+1430158968 source:c:\users\john\documents\uni\ci224games\blockgameci224\main.cpp
+	<iostream>
+	<SDL2/SDL.h>
+	"window.h"
+	"shader.h"
+	"cube.h"
+	"camera.h"
+	"transform.h"
+	"gamemanager.h"
+	<map>
+	"input.h"
+	<vector>
+	<utility>
+	<memory>
+
+1429791634 c:\users\john\documents\uni\ci224games\blockgameci224\gamemanager.h
+	"shader.h"
+	"cube.h"
+	"camera.h"
+	"transform.h"
+	"window.h"
+
+1430167982 source:c:\users\john\documents\uni\ci224games\blockgameci224\camera.cpp
+	"camera.h"
 
