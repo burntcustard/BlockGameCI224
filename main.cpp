@@ -17,7 +17,7 @@ using namespace std;
 
 bool gameRunning = true;
 
-input gameInput;
+Input input;
 Camera camera;
 Transform tCube;
 Transform tCube2;
@@ -35,10 +35,10 @@ void handleInput()
     int playerYMovement = 0;     // Player/camera up/down movement. (Jumping test)
 
     // Update inputs and handle events
-    gameInput.updateInput();
+    input.updateInput();
 
     // Update list of pressed keys with getKeys:
-    keys = gameInput.getKeys();
+    keys = input.getKeys();
 
     // Loop through all keys that are pressed
     for (auto key : keys)
@@ -62,6 +62,7 @@ void handleInput()
         }
     }
 
+    // Sideways (x-axis & z-axis) (along the ground) movement.
     if (playerXMovement && playerZMovement)
     // Diagonal movement - stops you moving too fast when going forward AND sideways
     {
@@ -75,16 +76,17 @@ void handleInput()
         camera.Move('x', (playerXMovement * playerMoveSpeed));
     }
 
+    // Up / down (y-axis) (jumping etc.) movement.
     camera.Move('y', (playerYMovement * playerMoveSpeed));
 
     // Get mouse cursor movement changes:
-    mouse = gameInput.getMouse();
+    mouse = input.getMouse();
     // If mouse has moved, spit it into console:
-    if (mouse['X'] | mouse['Y']) cout << "Mouse moved X: " << mouse['X'] << ", Y: " << mouse['Y'] << endl;
+    if (mouse['x'] | mouse['y']) cout << "Mouse moved X: " << mouse['x'] << ", Y: " << mouse['y'] << endl;
 
     // Rotate camera
-    camera.RotateX(mouse['X'] * lookSensitivity); // Look left/right
-    camera.RotateY(mouse['Y'] * lookSensitivity); // Look up/down
+    camera.RotateX(mouse['x'] * lookSensitivity); // Look left/right
+    camera.RotateY(mouse['y'] * lookSensitivity); // Look up/down
 
     /*
 

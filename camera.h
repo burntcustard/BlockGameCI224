@@ -1,9 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include<glm/glm.hpp>
-#include <glm/gtx/transform.hpp>
-#include <iostream>
+#include <glm/glm.hpp>
 
 class Camera
 {
@@ -40,37 +38,33 @@ class Camera
 	void Move(char direction, float amount)
 	{
         if (direction == 'y')
+        // Up / down (y-axis) (jumping etc.) movement.
         {
             _cameraPosition.y += amount;
         }
         else
+        // Sideways (x-axis & z-axis) (along the ground) movement.
         {
-            if (direction == 'z') RotateX(90); // If trying to move forward/back, rotate camera 90deg right.
+            if (direction == 'z') RotateX(90); // If trying to move forward/back in relation to camera
             // cross gets the "other" direction (not forward or up, so sideways)
             glm::vec3 moved = glm::cross(up, forward) * amount; // Calc amount moved sideways.
             _cameraPosition.x += moved.x; // Add the distance moved.
             _cameraPosition.z += moved.z; //
-            if (direction == 'z') RotateX(-90); // Rotate camera back.
+            if (direction == 'z') RotateX(-90); // Rotate camera back. (Pretend you never rotated!)
         }
-	}
-
-    // Side strafe movement
-	void MoveX(float amount)
-	{
-
 	}
 
     // Rotate camera left / right
 	void RotateY(float angle)
 	{
-        glm::vec3 right = glm::normalize(glm::cross(up, forward));
+        glm::vec3 right = glm::normalize(glm::cross(up, forward)); // Get sideways direction
 
         glm::vec3 tmpForward = glm::vec3(glm::normalize(glm::rotate(angle, right) * glm::vec4(forward, 0.0)));
-        glm::vec3 tmpUp = glm::normalize(glm::cross(forward, right));
+        glm::vec3 tmpUp = glm::normalize(glm::cross(tmpForward, right));
 
-        // Only set new rotation if forward (in relation to camera)
-        // is in between straight down and straight up (no front flips!)
-        if (tmpForward.z > 0 && tmpForward.z < 2)
+        // Only set new rotation if UP (in relation to camera)
+        // won't be digging into horizontal plane (no front flips!)
+        if (tmpUp.y > 0)
         {
             forward = tmpForward;
             up = tmpUp;
