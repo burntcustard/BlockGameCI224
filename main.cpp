@@ -29,9 +29,10 @@ std::map<char, int> mouse; // X and Y movement of mouse cursor.
 void handleInput()
 {
     float playerMoveSpeed = 0.1; // Player/cameras movement speed.
-    float lookSensitivity = 1.9; // Sensitivity of camera movement controlled by mouse.
+    float lookSensitivity = 0.2; // Sensitivity of camera movement controlled by mouse.
     int playerXMovement = 0;     // Player/camera side strafing.
     int playerZMovement = 0;     // Player/camera forward/back movement.
+    int playerYMovement = 0;     // Player/camera up/down movement. (Jumping test)
 
     // Update inputs and handle events
     gameInput.updateInput();
@@ -54,6 +55,8 @@ void handleInput()
                 case SDLK_a     : playerXMovement =  1; break; // Left
                 case SDLK_s     : playerZMovement = -1; break; // Back
                 case SDLK_d     : playerXMovement = -1; break; // Right
+                case SDLK_SPACE : playerYMovement =  1; break; // Up
+                case SDLK_LSHIFT: playerYMovement = -1; break; // Down
                 default: break; // No useful keys detected in list of pressed keys
             }
         }
@@ -62,15 +65,17 @@ void handleInput()
     if (playerXMovement && playerZMovement)
     // Diagonal movement - stops you moving too fast when going forward AND sideways
     {
-        camera.MoveZ((playerZMovement * playerMoveSpeed) / sqrt(2));
-        camera.MoveX((playerXMovement * playerMoveSpeed) / sqrt(2));
+        camera.Move('z', (playerZMovement * playerMoveSpeed) / sqrt(2));
+        camera.Move('x', (playerXMovement * playerMoveSpeed) / sqrt(2));
     }
     else
     // Simple one direction movement
     {
-        camera.MoveZ(playerZMovement * playerMoveSpeed);
-        camera.MoveX(playerXMovement * playerMoveSpeed);
+        camera.Move('z', (playerZMovement * playerMoveSpeed));
+        camera.Move('x', (playerXMovement * playerMoveSpeed));
     }
+
+    camera.Move('y', (playerYMovement * playerMoveSpeed));
 
     // Get mouse cursor movement changes:
     mouse = gameInput.getMouse();
