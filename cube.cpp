@@ -1,6 +1,6 @@
 #include "cube.h"
 
-Cube::Cube()
+Cube::Cube(int x, int y, int z)
 {
     Vertex verticies[] = {  Vertex(glm::vec3(-0.5,0.5,0.5)),
                             Vertex(glm::vec3(0.5,0.5,0.5)),
@@ -63,6 +63,7 @@ Cube::Cube()
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
     glBindVertexArray(0);
+    t.GetPos()=glm::vec3(x,y,z);
 }
 
 Cube::~Cube()

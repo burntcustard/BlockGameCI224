@@ -142,9 +142,9 @@ int main(int argc, char* argv[])
     Shader shader("./res/basicShader");
 
   //  Camera camera;
-    Cube cube;
+//    Cube cube;
  //   Transform tCube;
-    Cube cube2;
+  //  Cube cube2;
 //    Transform tCube2;
     cout << "Hello world!" << endl;
     tCube.GetPos().z=4;
@@ -152,15 +152,12 @@ int main(int argc, char* argv[])
     tCube2.GetPos().x=2;
     //tCube.GetRot().y=45;
     tCube.GetRot().z=90;
-    cube.t.GetPos().x=4;
-    cube.t.GetPos().z=4;
+    //cube.t.GetPos().x=4;
+    //cube.t.GetPos().z=4;
     std::vector<std::shared_ptr<Cube>> gameworld; //vector<std::shared_ptr<Cube>>
-    gameworld.push_back(std::make_shared<Cube>());
-    gameworld.push_back(std::make_shared<Cube>());
-    gameworld[0]->t.GetPos().z=5;
-    gameworld[0]->t.GetPos().x=3;
-    gameworld[1]->t.GetPos().z=4;
-    gameworld[1]->t.GetPos().x=0;
+    gameworld.push_back(std::make_shared<Cube>(4,0,4));
+    gameworld.push_back(std::make_shared<Cube>(0,1,3));
+
 
 
     while(!window.IsClosed() && gameRunning)
@@ -185,12 +182,20 @@ int main(int argc, char* argv[])
 void drawGame(Shader &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &window){
     glClearColor(0.0f, 0.15f, 0.3f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
+    /*
     shader.Update(gameworld[1]->t,camera);
     gameworld[1]->Draw();
     shader.Update(gameworld[0]->t,camera);
     gameworld[0]->Draw();
     //shader.Update(tCube2,camera);
     //cube.Draw();
+    */
+
+    for(int i=0; i<gameworld.size(); i++) {
+    shader.Update(gameworld[i]->t,camera);
+    gameworld[i]->Draw();
+    }
+
     shader.Bind();
     window.Update();
 }
