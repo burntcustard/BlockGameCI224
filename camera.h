@@ -24,15 +24,20 @@ class Camera
         {
             return _forward;
         }
-
+        inline double getVelocityY(){
+            return yVelocity;
+        }
+        double yVelocity;
         void Move(char direction, float amount);
         void RotateY(float angle);
         void RotateX(float angle);
+        void Jump();
     private:
         glm::mat4 _perspective;
         glm::vec3 cameraPosition;
         glm::vec3 _forward;
         glm::vec3 up;
+
 };
 
 #endif

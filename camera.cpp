@@ -55,6 +55,10 @@ void Camera::Move(char direction, float amount)
     }
 }
 
+void Camera::Jump() {
+    yVelocity= 0.15;
+}
+
 // Rotate camera left / right
 void Camera::RotateY(float angle)
 {

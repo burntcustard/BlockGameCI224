@@ -28,6 +28,7 @@ std::map<int, bool> keys;  // List of keycodes with true/false for pressed/not p
 std::map<char, int> mouse; // X and Y movement of mouse cursor.
 bool isColliding(glm::vec3 a, glm::vec3 b);
 void fire();
+void pGravity();
 void handleInput()
 {
     float playerMoveSpeed = 0.1; // Player/cameras movement speed.
@@ -52,12 +53,20 @@ void handleInput()
             // Check if that key does something important:
             switch (key.first)
             {
-                case SDLK_ESCAPE: gameRunning = false;  break;
-                case SDLK_w     : playerZMovement =  1; break; // Forward
-                case SDLK_a     : playerXMovement =  1; break; // Left
-                case SDLK_s     : playerZMovement = -1; break; // Back
-                case SDLK_d     : playerXMovement = -1; break; // Right
-                case SDLK_SPACE : playerYMovement =  1; break; // Up
+                case SDLK_ESCAPE: gameRunning = false;                                          break;
+                case SDLK_w     : playerZMovement =  1;                                         break; // Forward
+                case SDLK_a     : playerXMovement =  1;                                         break; // Left
+                case SDLK_s     : playerZMovement = -1;                                         break; // Back
+                case SDLK_d     : playerXMovement = -1;                                         break; // Right
+                case SDLK_SPACE : {
+                                    glm::vec3 pFeet = camera.GetPos();
+                                    pFeet.y+= -1;
+                                    for(int i = 0; i < gameworld.size(); i++) {
+                                        if(isColliding(pFeet, gameworld[i]->t.GetPos())) {
+                                            camera.Jump();
+                                        }
+                                    }
+                                    } break; // Up
                 case SDLK_LSHIFT: playerYMovement = -1; break; // Down
                 default: break; // No useful keys detected in list of pressed keys
             }
@@ -201,6 +210,14 @@ int main(int argc, char* argv[])
     //cube.t.GetPos().z=4;
     gameworld.push_back(std::make_shared<Cube>(4,0,4));
     gameworld.push_back(std::make_shared<Cube>(0,1,3));
+    gameworld.push_back(std::make_shared<Cube>(1,-1,0));
+    gameworld.push_back(std::make_shared<Cube>(1,-1,0));
+    gameworld.push_back(std::make_shared<Cube>(1,-1,0));
+    gameworld.push_back(std::make_shared<Cube>(1,-1,0));
+    gameworld.push_back(std::make_shared<Cube>(0,-1,0));
+    gameworld.push_back(std::make_shared<Cube>(0,-1,0));
+    gameworld.push_back(std::make_shared<Cube>(0,-1,0));
+    gameworld.push_back(std::make_shared<Cube>(0,-1,0));
 
 
     while(!window.IsClosed() && gameRunning)
@@ -248,6 +265,9 @@ void updateWorld(){
             projectiles[i]->t.GetPos()+= projectiles[i]->t.GetForwards();
         }
     }
+
+    pGravity();
+
 }
 
 
@@ -268,4 +288,16 @@ bool isColliding(glm::vec3 a, glm::vec3 b) {
     }
     else return false;
 
+}
+
+void pGravity() {
+    camera.yVelocity -= 0.005;
+    if(camera.yVelocity<= -0.1) camera.yVelocity = -0.1;
+    camera.Move('y', camera.yVelocity);
+    for(int i = 0; i < gameworld.size(); i++)   {
+        if(isColliding(gameworld[i]->t.GetPos(),camera.GetPos())){
+            camera.Move('y', -camera.yVelocity);
+            camera.yVelocity=0;
+        }
+    }
 }
