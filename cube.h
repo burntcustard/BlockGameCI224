@@ -25,12 +25,14 @@ class Cube
         void Draw();
         Transform t;
         Cube(const Cube& other);
-
+        bool IsDead();
+        void SetDead();
         virtual ~Cube();
     protected:
     private:
 
         void operator=(const Cube& other);
+        bool dead;
         glm::vec3 _forward;
         enum
         {

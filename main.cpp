@@ -26,16 +26,19 @@ void drawGame(Shader &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &
 
 std::map<int, bool> keys;  // List of keycodes with true/false for pressed/not pressed.
 std::map<char, int> mouse; // X and Y movement of mouse cursor.
-bool isColliding(glm::vec3 a, glm::vec3 b);
+bool isColliding(glm::vec3 aPos, glm::vec3 aScale, glm::vec3 bPos, glm::vec3 bScale);
 void fire();
 void pGravity();
+
+float playerMoveSpeed = 0.1;                     // Player/cameras movement speed.
+float lookSensitivity = 0.2;                     // Sensitivity of camera movement controlled by mouse.
+glm::vec3 playerSize = glm::vec3(0.1, 1.0, 0.1); // Player/camera x/y/z dimensions.
+
 void handleInput()
 {
-    float playerMoveSpeed = 0.1; // Player/cameras movement speed.
-    float lookSensitivity = 0.2; // Sensitivity of camera movement controlled by mouse.
-    int playerXMovement = 0;     // Player/camera side strafing.
-    int playerZMovement = 0;     // Player/camera forward/back movement.
-    int playerYMovement = 0;     // Player/camera up/down movement. (Jumping test)
+    int playerXMovement = 0; // Player/camera side strafing.
+    int playerZMovement = 0; // Player/camera forward/back movement.
+    int playerYMovement = 0; // Player/camera up/down movement. (Jumping test)
 
     // Update inputs and handle events
     input.updateInput();
@@ -59,14 +62,13 @@ void handleInput()
                 case SDLK_s     : playerZMovement = -1;                                         break; // Back
                 case SDLK_d     : playerXMovement = -1;                                         break; // Right
                 case SDLK_SPACE : {
-                                    glm::vec3 pFeet = camera.GetPos();
-                                    pFeet.y+= -1;
-                                    for(int i = 0; i < gameworld.size(); i++) {
-                                        if(isColliding(pFeet, gameworld[i]->t.GetPos())) {
-                                            camera.Jump();
-                                        }
-                                    }
-                                    } break; // Up
+                    glm::vec3 legs = glm::vec3(0,-1,0); // Legs that stick out the bottom of camera...
+                    for(int i = 0; i < gameworld.size(); i++) {
+                        if(isColliding(camera.GetPos()+legs, playerSize, gameworld[i]->t.GetPos(),gameworld[i]->t.GetScale())) {
+                            camera.Jump();
+                        }
+                    }
+                } break; // Up
                 case SDLK_LSHIFT: playerYMovement = -1; break; // Down
                 default: break; // No useful keys detected in list of pressed keys
             }
@@ -80,7 +82,7 @@ void handleInput()
         camera.Move('z', (playerZMovement * playerMoveSpeed) / sqrt(2));
         camera.Move('x', (playerXMovement * playerMoveSpeed) / sqrt(2));
         for(int i = 0; i < gameworld.size(); i++)   {
-            if(isColliding(gameworld[i]->t.GetPos(),camera.GetPos())){
+            if(isColliding(gameworld[i]->t.GetPos(),gameworld[i]->t.GetScale(),camera.GetPos(),glm::vec3(0.1,0.1,0.1))){
                 camera.Move('z', (-playerZMovement * playerMoveSpeed) / sqrt(2));
                 camera.Move('x', (-playerXMovement * playerMoveSpeed) / sqrt(2));
             }
@@ -92,7 +94,7 @@ void handleInput()
         camera.Move('z', (playerZMovement * playerMoveSpeed));
         camera.Move('x', (playerXMovement * playerMoveSpeed));
         for(int i = 0; i < gameworld.size(); i++)   {
-            if(isColliding(gameworld[i]->t.GetPos(),camera.GetPos())){
+            if(isColliding(gameworld[i]->t.GetPos(),gameworld[i]->t.GetScale(),camera.GetPos(),glm::vec3(0.1,0.1,0.1))){
                 camera.Move('z', (-playerZMovement * playerMoveSpeed));
                 camera.Move('x', (-playerXMovement * playerMoveSpeed));
             }
@@ -114,74 +116,6 @@ void handleInput()
     // Mouse buttons (should be done with keyboard shortcuts?)
     if (mouse['l']) fire();
 
-    /*
-
-    SDL_Event event;
-    while (SDL_PollEvent(&event))
-      {
-         if (event.type == SDL_KEYDOWN)
-         {
-            cout << "keydown: " << event.key.keysym.sym << endl;
-            switch (event.key.keysym.sym)
-            {
-               case SDLK_ESCAPE:
-                  gameRunning = false;
-               break;
-               case SDLK_w:
-                  camera.MoveForward(0.1);
-                  //if(abs(camera.GetPos().x-cube.t.GetPos().x)<=1 && abs(camera.GetPos().y-cube.t.GetPos().y)<=1 && abs(camera.GetPos().z-cube.t.GetPos().z)<=1)
-                  //{
-                    //camera.MoveForward(-0.1);
-                  //}
-                  if(abs(camera.GetPos().x-tCube2.GetPos().x)<=1 && abs(camera.GetPos().y-tCube2.GetPos().y)<=1 && abs(camera.GetPos().z-tCube2.GetPos().z)<=1)
-                  {
-                    camera.MoveForward(-0.1);
-                  }
-                break;
-
-                case SDLK_s:
-                  camera.MoveForward(-0.1);
-                  if(abs(camera.GetPos().x-tCube.GetPos().x)<=1 && abs(camera.GetPos().y-tCube.GetPos().y)<=1 && abs(camera.GetPos().z-tCube.GetPos().z)<=1)
-                  {
-                    camera.MoveForward(0.1);
-                  }
-                  if(abs(camera.GetPos().x-tCube2.GetPos().x)<=1 && abs(camera.GetPos().y-tCube2.GetPos().y)<=1 && abs(camera.GetPos().z-tCube2.GetPos().z)<=1)
-                  {
-                    camera.MoveForward(0.1);
-                  }
-                break;
-
-                case SDLK_d:
-                  camera.MoveRight(-0.1);
-                  if(abs(camera.GetPos().x-tCube.GetPos().x)<=1 && abs(camera.GetPos().y-tCube.GetPos().y)<=1 && abs(camera.GetPos().z-tCube.GetPos().z)<=1)
-                  {
-                    camera.MoveRight(0.1);
-                  }
-                  if(abs(camera.GetPos().x-tCube2.GetPos().x)<=1 && abs(camera.GetPos().y-tCube2.GetPos().y)<=1 && abs(camera.GetPos().z-tCube2.GetPos().z)<=1)
-                  {
-                    camera.MoveRight(0.1);
-                  }
-                break;
-                case SDLK_a:
-                  camera.MoveRight(0.1);
-                  if(abs(camera.GetPos().x-tCube.GetPos().x)<=1 && abs(camera.GetPos().y-tCube.GetPos().y)<=1 && abs(camera.GetPos().z-tCube.GetPos().z)<=1)
-                  {
-                    camera.MoveRight(-0.1);
-                  }
-                  if(abs(camera.GetPos().x-tCube2.GetPos().x)<=1 && abs(camera.GetPos().y-tCube2.GetPos().y)<=1 && abs(camera.GetPos().z-tCube2.GetPos().z)<=1)
-                  {
-                    camera.MoveRight(-0.1);                  }
-                break;
-            }
-         }
-         if (event.type == SDL_MOUSEMOTION)
-         {
-            camera.RotateY(-event.motion.xrel/2);
-            camera.Pitch(event.motion.yrel/2);
-         }
-      }
-      */
-
 }
 
 int main(int argc, char* argv[])
@@ -191,33 +125,29 @@ int main(int argc, char* argv[])
     SDL_SetRelativeMouseMode(SDL_TRUE); // Capture mouse (prevents stuck when hitting window edge)
     Window window(960,720, "game");
 
-   // GameManager game();
-    //fire();
+    // GameManager game();
+
     Shader shader("./res/basicShader");
 
-  //  Camera camera;
-    //Cube cube;
- //   Transform tCube;
-    //Cube cube2;
-//    Transform tCube2;
-    cout << "Hello world!" << endl;
-    //tCube.GetPos().z=4;
-    //tCube2.GetPos().z=3;
-    //tCube2.GetPos().x=2;
-    //tCube.GetRot().y=45;
-    //tCube.GetRot().z=90;
-    //cube.t.GetPos().x=4;
-    //cube.t.GetPos().z=4;
+    cout << "Game started!" << endl;
+
     gameworld.push_back(std::make_shared<Cube>(4,0,4));
     gameworld.push_back(std::make_shared<Cube>(0,1,3));
-    gameworld.push_back(std::make_shared<Cube>(1,-1,0));
-    gameworld.push_back(std::make_shared<Cube>(1,-1,0));
-    gameworld.push_back(std::make_shared<Cube>(1,-1,0));
-    gameworld.push_back(std::make_shared<Cube>(1,-1,0));
-    gameworld.push_back(std::make_shared<Cube>(0,-1,0));
-    gameworld.push_back(std::make_shared<Cube>(0,-1,0));
-    gameworld.push_back(std::make_shared<Cube>(0,-1,0));
-    gameworld.push_back(std::make_shared<Cube>(0,-1,0));
+    gameworld.push_back(std::make_shared<Cube>(-1,-1,-2));
+    gameworld.push_back(std::make_shared<Cube>( 0,-1,-2));
+    gameworld.push_back(std::make_shared<Cube>( 1,-1,-2));
+    gameworld.push_back(std::make_shared<Cube>(-1,-1,-1));
+    gameworld.push_back(std::make_shared<Cube>( 0,-1,-1));
+    gameworld.push_back(std::make_shared<Cube>( 1,-1,-1));
+    gameworld.push_back(std::make_shared<Cube>(-1,-1, 0));
+    gameworld.push_back(std::make_shared<Cube>( 0,-1, 0));
+    gameworld.push_back(std::make_shared<Cube>( 1,-1, 0));
+    gameworld.push_back(std::make_shared<Cube>(-1,-1, 1));
+    gameworld.push_back(std::make_shared<Cube>( 0,-1, 1));
+    gameworld.push_back(std::make_shared<Cube>( 1,-1, 1));
+    gameworld.push_back(std::make_shared<Cube>( 2, 0, 0));
+    gameworld.push_back(std::make_shared<Cube>( 2, 0, 1));
+    gameworld.push_back(std::make_shared<Cube>( 2, 0, 2));
 
 
     while(!window.IsClosed() && gameRunning)
@@ -268,6 +198,38 @@ void updateWorld(){
 
     pGravity();
 
+    // Detect collisions:
+    for (auto p : projectiles)
+    {
+        for (auto c : gameworld)
+        {
+            if (isColliding(p->t.GetPos(), p->t.GetScale(), c->t.GetPos(), c->t.GetScale()))
+            {
+                // There was a collision and now the two things explode.
+                cout << "COLLISION!" << endl;
+                p->SetDead();
+                c->SetDead();
+            }
+        }
+    }
+
+    // Remove dead projectiles
+    std::vector<std::shared_ptr<Cube>> tmpProjectiles;
+    for (auto p : projectiles)
+    {
+        if (!p->IsDead()) tmpProjectiles.push_back(p);
+    }
+    projectiles.clear();
+    projectiles = tmpProjectiles;
+
+    // Remove dead cubes
+    std::vector<std::shared_ptr<Cube>> tmpCubes;
+    for (auto c : gameworld)
+    {
+        if (!c->IsDead()) tmpCubes.push_back(c);
+    }
+    gameworld.clear();
+    gameworld = tmpCubes;
 }
 
 
@@ -279,15 +241,11 @@ void fire() {
 
 }
 
-bool isColliding(glm::vec3 a, glm::vec3 b) {
-   if(a.x-b.x<=1 && a.y-b.y<=1 && a.z-b.z<=1 && a.x-b.x>=-1 && a.y-b.y>=-1 && a.z-b.z>=-1)
-    {
-        cout << "COLLISION!" << endl;
-        return true;
-
-    }
-    else return false;
-
+bool isColliding(glm::vec3 aPos, glm::vec3 aScale, glm::vec3 bPos, glm::vec3 bScale) {
+    if (!(fabsf(aPos.x - bPos.x) < aScale.x/2 + bScale.x/2)) return false; // Not colliding on x axis
+    if (!(fabsf(aPos.y - bPos.y) < aScale.y/2 + bScale.y/2)) return false; // Not colliding on y axis
+    if (!(fabsf(aPos.z - bPos.z) < aScale.z/2 + bScale.z/2)) return false; // Not colliding on z axis
+    return true; // Colliding on all axis, so actually inside each other!
 }
 
 void pGravity() {
@@ -295,7 +253,7 @@ void pGravity() {
     if(camera.yVelocity<= -0.1) camera.yVelocity = -0.1;
     camera.Move('y', camera.yVelocity);
     for(int i = 0; i < gameworld.size(); i++)   {
-        if(isColliding(gameworld[i]->t.GetPos(),camera.GetPos())){
+        if(isColliding(gameworld[i]->t.GetPos(), gameworld[i]->t.GetScale(), camera.GetPos(), playerSize)){
             camera.Move('y', -camera.yVelocity);
             camera.yVelocity=0;
         }
