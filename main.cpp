@@ -21,6 +21,8 @@ input gameInput;
 Camera camera;
 Transform tCube;
 Transform tCube2;
+std::vector<std::shared_ptr<Cube>> projectiles;
+void fire();
 void drawGame(Shader &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &window);
 
 std::map<int, bool> keys;  // List of keycodes with true/false for pressed/not pressed.
@@ -47,6 +49,7 @@ void handleInput()
                 case SDLK_ESCAPE: gameRunning = false;     break;
                 case SDLK_a     : camera.MoveRight(0.1);   break;
                 case SDLK_d     : camera.MoveRight(-0.1);  break;
+                case SDLK_q     : fire();                  break;
                 default: break; // No useful keys detected in list of pressed keys
             }
         }
@@ -196,6 +199,16 @@ void drawGame(Shader &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &
     gameworld[i]->Draw();
     }
 
+    for(int i=0; i<projectiles.size(); i++) {
+    shader.Update(projectiles[i]->t,camera);
+    projectiles[i]->Draw();
+    }
+
     shader.Bind();
     window.Update();
+}
+
+void fire() {
+
+    projectiles.push_back(std::make_shared<Cube>(camera.GetPos().x, camera.GetPos().y, camera.GetPos().z));
 }
