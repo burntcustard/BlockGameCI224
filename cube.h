@@ -16,29 +16,38 @@ class Vertex
     private:
         glm::vec3 pos;
 };
+
 class Cube
 {
     public:
-        Cube();
+        Cube(int x, int y, int z);
 
         void Draw();
         Transform t;
         Cube(const Cube& other);
+        bool IsDead();
+        void SetDead();
         virtual ~Cube();
     protected:
     private:
 
         void operator=(const Cube& other);
-
+        bool dead;
+        glm::vec3 _forward;
         enum
         {
             POSITION_VB,
             NUM_BUFFERS
         };
 
-        GLuint _vertexArrayObject;
+        // Array of vertexes that make up the cube. Stored in GPU.
+        GLuint vertexArrayObject;
+
+        // These will probably be 0, used for error checking and making related values more readable.
+        GLint coord3d, color;
+
         GLuint _vetexArrayBuffers[NUM_BUFFERS];
-        unsigned int _drawCount;
+        uint8_t numVerticies;
 };
 
 #endif // MESH_H

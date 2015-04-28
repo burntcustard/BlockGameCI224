@@ -3,11 +3,11 @@
 
 #include <map>
 
-class input
+class Input
 {
     public:
-        input();
-        ~input();
+        Input();
+        ~Input();
         void updateInput();
         std::map<int, bool> getKeys();
         std::map<char, int> getMouse();
