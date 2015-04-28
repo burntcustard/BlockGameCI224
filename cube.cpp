@@ -74,6 +74,7 @@ Cube::Cube(int x, int y, int z)
         (GLvoid*) (sizeof(glm::vec3)) // Array buffer offset. (Size of the color data)
     );
     t.GetPos()=glm::vec3(x,y,z);
+    t.GetForwards()=glm::vec3(0,0,0);
     /*
     // Color:
     glEnableVertexAttribArray(color);
@@ -102,3 +103,5 @@ void Cube::Draw()
     //glBindVertexArray(0);
     //glBindVertexArray(vertexArrayObject);
 }
+
+

@@ -25,12 +25,13 @@ class Cube
         void Draw();
         Transform t;
         Cube(const Cube& other);
+
         virtual ~Cube();
     protected:
     private:
 
         void operator=(const Cube& other);
-
+        glm::vec3 _forward;
         enum
         {
             POSITION_VB,

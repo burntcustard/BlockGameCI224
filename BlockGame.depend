@@ -771,10 +771,10 @@
 	"transform.h"
 	"window.h"
 
-1430223241 source:/home/oalister/BlockGameCI224/cube.cpp
+1430232478 source:/home/oalister/BlockGameCI224/cube.cpp
 	"cube.h"
 
-1430223241 /home/oalister/BlockGameCI224/cube.h
+1430232260 /home/oalister/BlockGameCI224/cube.h
 	<glm/glm.hpp>
 	<GL/glew.h>
 	"transform.h"
@@ -1108,7 +1108,7 @@
 	<OpenGL/glu.h>
 	<GL/glu.h>
 
-1424865604 /home/oalister/BlockGameCI224/transform.h
+1430232456 /home/oalister/BlockGameCI224/transform.h
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
 	"transform.h"
@@ -1137,7 +1137,7 @@
 
 1424865604 /home/oalister/BlockGameCI224/include/glm/gtx/transform.inl
 
-1424865604 source:/home/oalister/BlockGameCI224/shader.cpp
+1430228922 source:/home/oalister/BlockGameCI224/shader.cpp
 	"shader.h"
 	<iostream>
 	<fstream>
@@ -1150,7 +1150,7 @@
 	"transform.h"
 	"camera.h"
 
-1430222098 /home/oalister/BlockGameCI224/camera.h
+1430231182 /home/oalister/BlockGameCI224/camera.h
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
 
@@ -1478,14 +1478,14 @@
 	"begin_code.h"
 	"close_code.h"
 
-1430075097 source:/home/oalister/BlockGameCI224/input.cpp
+1430228922 source:/home/oalister/BlockGameCI224/input.cpp
 	"input.h"
 	<SDL2/SDL.h>
 
-1430075097 /home/oalister/BlockGameCI224/input.h
+1430228922 /home/oalister/BlockGameCI224/input.h
 	<map>
 
-1430222286 source:/home/oalister/BlockGameCI224/main.cpp
+1430232914 source:/home/oalister/BlockGameCI224/main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	"window.h"
@@ -1506,4 +1506,7 @@
 	"camera.h"
 	"transform.h"
 	"window.h"
+
+1430228922 source:/home/oalister/BlockGameCI224/camera.cpp
+	"camera.h"
 

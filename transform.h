@@ -33,6 +33,7 @@ class Transform
         inline glm::vec3& GetPos() {return _pos;}
         inline glm::vec3& GetRot() {return _rot;}
         inline glm::vec3& GetScale() {return _scale;}
+        inline glm::vec3& GetForwards() {return _forward;}
 
         //virtual ~Transform();
     protected:
@@ -40,6 +41,7 @@ class Transform
         glm::vec3 _pos;
         glm::vec3 _rot;
         glm::vec3 _scale;
+        glm::vec3 _forward;
 };
 
 #endif // TRANSFORM_H

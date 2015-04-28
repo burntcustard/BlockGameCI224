@@ -20,6 +20,11 @@ class Camera
         {
             return cameraPosition;
         }
+        inline glm::vec3 GetForward()
+        {
+            return _forward;
+        }
+
         void Move(char direction, float amount);
         void RotateY(float angle);
         void RotateX(float angle);

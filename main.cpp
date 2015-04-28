@@ -22,15 +22,16 @@ Camera camera;
 Transform tCube;
 Transform tCube2;
 std::vector<std::shared_ptr<Cube>> projectiles;
+void updateWorld();
 
 void drawGame(Shader &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &window);
 
 std::map<int, bool> keys;  // List of keycodes with true/false for pressed/not pressed.
 std::map<char, int> mouse; // X and Y movement of mouse cursor.
 
-void fire()
-{
+void fire() {
     projectiles.push_back(std::make_shared<Cube>(camera.GetPos().x, camera.GetPos().y, camera.GetPos().z));
+    projectiles[projectiles.size()-1]->t.GetForwards()=camera.GetForward();
 }
 
 void handleInput()
@@ -202,11 +203,8 @@ int main(int argc, char* argv[])
 
         handleInput();
 
-        // cout << cube.t.GetPos().x << endl;
-        tCube.GetRot().x+=2;
-   //     tCube.GetPos().y+=0.01;
-        tCube2.GetRot().z+=2;
-      //  camera.Pitch(1);
+        updateWorld();
+
         drawGame(shader, gameworld, window);
 
     }
@@ -235,4 +233,12 @@ void drawGame(Shader &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &
 
     shader.Bind();
     window.Update();
+}
+
+void updateWorld(){
+
+    for(int i = 0; i < projectiles.size(); i++)
+    {
+        projectiles[i]->t.GetPos()+= projectiles[i]->t.GetForwards();
+    }
 }
