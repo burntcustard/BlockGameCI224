@@ -21,10 +21,17 @@ Input input;
 Camera camera;
 Transform tCube;
 Transform tCube2;
+std::vector<std::shared_ptr<Cube>> projectiles;
+
 void drawGame(Shader &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &window);
 
 std::map<int, bool> keys;  // List of keycodes with true/false for pressed/not pressed.
 std::map<char, int> mouse; // X and Y movement of mouse cursor.
+
+void fire()
+{
+    projectiles.push_back(std::make_shared<Cube>(camera.GetPos().x, camera.GetPos().y, camera.GetPos().z));
+}
 
 void handleInput()
 {
@@ -87,6 +94,9 @@ void handleInput()
     // Rotate camera
     camera.RotateX(mouse['x'] * lookSensitivity); // Look left/right
     camera.RotateY(mouse['y'] * lookSensitivity); // Look up/down
+
+    // Mouse buttons (should be done with keyboard shortcuts?)
+    if (mouse['l']) fire();
 
     /*
 
@@ -170,25 +180,21 @@ int main(int argc, char* argv[])
     Shader shader("./res/basicShader");
 
   //  Camera camera;
-    Cube cube;
+    //Cube cube;
  //   Transform tCube;
-    Cube cube2;
+    //Cube cube2;
 //    Transform tCube2;
     cout << "Hello world!" << endl;
-    tCube.GetPos().z=4;
-    tCube2.GetPos().z=3;
-    tCube2.GetPos().x=2;
+    //tCube.GetPos().z=4;
+    //tCube2.GetPos().z=3;
+    //tCube2.GetPos().x=2;
     //tCube.GetRot().y=45;
-    tCube.GetRot().z=90;
-    cube.t.GetPos().x=4;
-    cube.t.GetPos().z=4;
+    //tCube.GetRot().z=90;
+    //cube.t.GetPos().x=4;
+    //cube.t.GetPos().z=4;
     std::vector<std::shared_ptr<Cube>> gameworld; //vector<std::shared_ptr<Cube>>
-    gameworld.push_back(std::make_shared<Cube>());
-    gameworld.push_back(std::make_shared<Cube>());
-    gameworld[0]->t.GetPos().z=5;
-    gameworld[0]->t.GetPos().x=3;
-    gameworld[1]->t.GetPos().z=4;
-    gameworld[1]->t.GetPos().x=0;
+    gameworld.push_back(std::make_shared<Cube>(4,0,4));
+    gameworld.push_back(std::make_shared<Cube>(0,1,3));
 
 
     while(!window.IsClosed() && gameRunning)
@@ -213,12 +219,20 @@ int main(int argc, char* argv[])
 void drawGame(Shader &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &window){
     glClearColor(0.0f, 0.15f, 0.3f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    shader.Update(gameworld[1]->t,camera);
-    gameworld[1]->Draw();
-    shader.Update(gameworld[0]->t,camera);
-    gameworld[0]->Draw();
-    //shader.Update(tCube2,camera);
-    //cube.Draw();
+
+    // This makes sense so removed old commented out version (but comments on each line might be useful too!
+    for(int i = 0; i < gameworld.size(); i++)
+    {
+        shader.Update(gameworld[i]->t,camera);
+        gameworld[i]->Draw();
+    }
+
+    for(int i = 0; i < projectiles.size(); i++)
+    {
+        shader.Update(projectiles[i]->t,camera);
+        projectiles[i]->Draw();
+    }
+
     shader.Bind();
     window.Update();
 }

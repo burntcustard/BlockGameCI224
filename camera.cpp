@@ -15,12 +15,12 @@ inline glm::mat4 Camera::GetViewProjection() const
 {
     return _perspective * glm::lookAt(cameraPosition, cameraPosition + _forward, up);
 }
-*/
 
 inline glm::vec3 Camera::GetPos()
 {
     return cameraPosition;
 }
+*/
 
 /**
  * Moves camera around.

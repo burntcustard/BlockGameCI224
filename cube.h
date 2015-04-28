@@ -20,7 +20,7 @@ class Vertex
 class Cube
 {
     public:
-        Cube();
+        Cube(int x, int y, int z);
 
         void Draw();
         Transform t;

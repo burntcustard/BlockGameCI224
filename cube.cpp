@@ -1,6 +1,6 @@
 #include "cube.h"
 
-Cube::Cube()
+Cube::Cube(int x, int y, int z)
 {
     Vertex vaoCube[] = {
         // Color of cube
@@ -73,6 +73,7 @@ Cube::Cube()
         0,                            // No extra data between each position.
         (GLvoid*) (sizeof(glm::vec3)) // Array buffer offset. (Size of the color data)
     );
+    t.GetPos()=glm::vec3(x,y,z);
     /*
     // Color:
     glEnableVertexAttribArray(color);
