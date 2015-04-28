@@ -55,7 +55,6 @@ Cube::Cube(int x, int y, int z)
     // Create (Generate) one vertex array data buffer, & make it the current active buffer:
     glGenVertexArrays(1, &vertexArrayObject);
     glBindBuffer(GL_ARRAY_BUFFER, vertexArrayObject);
-
     // Push vertices to data buffer:
     glBufferData(
         GL_ARRAY_BUFFER,

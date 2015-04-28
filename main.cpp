@@ -19,21 +19,15 @@ bool gameRunning = true;
 
 Input input;
 Camera camera;
-Transform tCube;
-Transform tCube2;
+std::vector<std::shared_ptr<Cube>> gameworld;
 std::vector<std::shared_ptr<Cube>> projectiles;
 void updateWorld();
-
 void drawGame(Shader &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &window);
 
 std::map<int, bool> keys;  // List of keycodes with true/false for pressed/not pressed.
 std::map<char, int> mouse; // X and Y movement of mouse cursor.
-
-void fire() {
-    projectiles.push_back(std::make_shared<Cube>(camera.GetPos().x, camera.GetPos().y, camera.GetPos().z));
-    projectiles[projectiles.size()-1]->t.GetForwards()=camera.GetForward();
-}
-
+bool isColliding(glm::vec3 a, glm::vec3 b);
+void fire();
 void handleInput()
 {
     float playerMoveSpeed = 0.1; // Player/cameras movement speed.
@@ -76,12 +70,24 @@ void handleInput()
     {
         camera.Move('z', (playerZMovement * playerMoveSpeed) / sqrt(2));
         camera.Move('x', (playerXMovement * playerMoveSpeed) / sqrt(2));
+        for(int i = 0; i < gameworld.size(); i++)   {
+            if(isColliding(gameworld[i]->t.GetPos(),camera.GetPos())){
+                camera.Move('z', (-playerZMovement * playerMoveSpeed) / sqrt(2));
+                camera.Move('x', (-playerXMovement * playerMoveSpeed) / sqrt(2));
+            }
+        }
     }
     else
     // Simple one direction movement
     {
         camera.Move('z', (playerZMovement * playerMoveSpeed));
         camera.Move('x', (playerXMovement * playerMoveSpeed));
+        for(int i = 0; i < gameworld.size(); i++)   {
+            if(isColliding(gameworld[i]->t.GetPos(),camera.GetPos())){
+                camera.Move('z', (-playerZMovement * playerMoveSpeed));
+                camera.Move('x', (-playerXMovement * playerMoveSpeed));
+            }
+        }
     }
 
     // Up / down (y-axis) (jumping etc.) movement.
@@ -177,7 +183,7 @@ int main(int argc, char* argv[])
     Window window(960,720, "game");
 
    // GameManager game();
-
+    //fire();
     Shader shader("./res/basicShader");
 
   //  Camera camera;
@@ -193,7 +199,6 @@ int main(int argc, char* argv[])
     //tCube.GetRot().z=90;
     //cube.t.GetPos().x=4;
     //cube.t.GetPos().z=4;
-    std::vector<std::shared_ptr<Cube>> gameworld; //vector<std::shared_ptr<Cube>>
     gameworld.push_back(std::make_shared<Cube>(4,0,4));
     gameworld.push_back(std::make_shared<Cube>(0,1,3));
 
@@ -239,6 +244,28 @@ void updateWorld(){
 
     for(int i = 0; i < projectiles.size(); i++)
     {
-        projectiles[i]->t.GetPos()+= projectiles[i]->t.GetForwards();
+        if(projectiles.size()>0){
+            projectiles[i]->t.GetPos()+= projectiles[i]->t.GetForwards();
+        }
     }
+}
+
+
+
+void fire() {
+    projectiles.push_back(std::make_shared<Cube>(camera.GetPos().x, camera.GetPos().y, camera.GetPos().z));
+    projectiles[projectiles.size()-1]->t.GetForwards() = camera.GetForward();
+    projectiles[projectiles.size()-1]->t.GetScale() = glm::vec3(0.3, 0.3, 0.3);
+
+}
+
+bool isColliding(glm::vec3 a, glm::vec3 b) {
+   if(a.x-b.x<=1 && a.y-b.y<=1 && a.z-b.z<=1 && a.x-b.x>=-1 && a.y-b.y>=-1 && a.z-b.z>=-1)
+    {
+        cout << "COLLISION!" << endl;
+        return true;
+
+    }
+    else return false;
+
 }
