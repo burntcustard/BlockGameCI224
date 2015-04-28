@@ -2,6 +2,7 @@
 
 Cube::Cube(int x, int y, int z)
 {
+    dead = false;
     Vertex vaoCube[] = {
         // Color of cube
         glm::vec3(0.0, 1.0, 0.0),
@@ -101,6 +102,16 @@ void Cube::Draw()
     // Clear stuff so that other things can be drawn? Memory saved? Not needed in modern openGL?
     //glBindVertexArray(0);
     //glBindVertexArray(vertexArrayObject);
+}
+
+void Cube::SetDead()
+{
+    dead = true;
+}
+
+bool Cube::IsDead()
+{
+    return dead;
 }
 
 
