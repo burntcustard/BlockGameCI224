@@ -16,6 +16,7 @@ class Vertex
     private:
         glm::vec3 pos;
 };
+
 class Cube
 {
     public:
@@ -36,9 +37,14 @@ class Cube
             NUM_BUFFERS
         };
 
-        GLuint _vertexArrayObject;
+        // Array of vertexes that make up the cube. Stored in GPU.
+        GLuint vertexArrayObject;
+
+        // These will probably be 0, used for error checking and making related values more readable.
+        GLint coord3d, color;
+
         GLuint _vetexArrayBuffers[NUM_BUFFERS];
-        unsigned int _drawCount;
+        uint8_t numVerticies;
 };
 
 #endif // MESH_H

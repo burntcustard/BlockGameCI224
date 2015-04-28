@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1429791634 source:c:\users\john\documents\uni\ci224games\blockgameci224\cube.cpp
+1430191688 source:c:\users\john\documents\uni\ci224games\blockgameci224\cube.cpp
 	"cube.h"
 
-1430090423 c:\users\john\documents\uni\ci224games\blockgameci224\cube.h
+1430190918 c:\users\john\documents\uni\ci224games\blockgameci224\cube.h
 	<glm/glm.hpp>
 	<GL/glew.h>
 	"transform.h"
@@ -365,7 +365,7 @@
 
 1429791635 c:\users\john\documents\uni\ci224games\blockgameci224\include\glm\gtx\transform.inl
 
-1430167614 source:c:\users\john\documents\uni\ci224games\blockgameci224\shader.cpp
+1430169206 source:c:\users\john\documents\uni\ci224games\blockgameci224\shader.cpp
 	"shader.h"
 	<iostream>
 	<fstream>
@@ -1514,6 +1514,9 @@
 	"transform.h"
 	"window.h"
 
-1430167982 source:c:\users\john\documents\uni\ci224games\blockgameci224\camera.cpp
+1430168277 source:c:\users\john\documents\uni\ci224games\blockgameci224\camera.cpp
 	"camera.h"
+
+1429791634 source:c:\users\john\documents\uni\ci224games\blockgameci224\gamemanager.cpp
+	"gamemanager.h"
 

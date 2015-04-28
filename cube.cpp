@@ -2,79 +2,102 @@
 
 Cube::Cube()
 {
-    Vertex verticies[] = {  Vertex(glm::vec3(-0.5,0.5,0.5)),
-                            Vertex(glm::vec3(0.5,0.5,0.5)),
-                            Vertex(glm::vec3(-0.5,-0.5,0.5)),
-                            Vertex(glm::vec3(0.5,0.5,0.5)),
-                            Vertex(glm::vec3(-0.5,-0.5,0.5)),
-                            Vertex(glm::vec3(0.5,-0.5,0.5)),
+    Vertex vaoCube[] = {
+        // Color of cube
+        glm::vec3(0.0, 1.0, 0.0),
 
+        Vertex(glm::vec3(-0.5,0.5,0.5)),
+        Vertex(glm::vec3(0.5,0.5,0.5)),
+        Vertex(glm::vec3(-0.5,-0.5,0.5)),
+        Vertex(glm::vec3(0.5,0.5,0.5)),
+        Vertex(glm::vec3(-0.5,-0.5,0.5)),
+        Vertex(glm::vec3(0.5,-0.5,0.5)),
 
-                            Vertex(glm::vec3(-0.5,0.5,-0.5)),
-                            Vertex(glm::vec3(0.5,0.5,-0.5)),
-                            Vertex(glm::vec3(-0.5,-0.5,-0.5)),
-                            Vertex(glm::vec3(0.5,0.5,-0.5)),
-                            Vertex(glm::vec3(-0.5,-0.5,-0.5)),
-                            Vertex(glm::vec3(0.5,-0.5,-0.5)),
+        Vertex(glm::vec3(-0.5,0.5,-0.5)),
+        Vertex(glm::vec3(0.5,0.5,-0.5)),
+        Vertex(glm::vec3(-0.5,-0.5,-0.5)),
+        Vertex(glm::vec3(0.5,0.5,-0.5)),
+        Vertex(glm::vec3(-0.5,-0.5,-0.5)),
+        Vertex(glm::vec3(0.5,-0.5,-0.5)),
 
+        Vertex(glm::vec3(0.5,0.5,0.5)),
+        Vertex(glm::vec3(0.5,-0.5,0.5)),
+        Vertex(glm::vec3(0.5,0.5,-0.5)),
+        Vertex(glm::vec3(-0.5,0.5,0.5)),
+        Vertex(glm::vec3(-0.5,-0.5,0.5)),
+        Vertex(glm::vec3(-0.5,0.5,-0.5)),
 
-                            Vertex(glm::vec3(0.5,0.5,0.5)),
-                            Vertex(glm::vec3(0.5,-0.5,0.5)),
-                            Vertex(glm::vec3(0.5,0.5,-0.5)),
-                            Vertex(glm::vec3(-0.5,0.5,0.5)),
-                            Vertex(glm::vec3(-0.5,-0.5,0.5)),
-                            Vertex(glm::vec3(-0.5,0.5,-0.5)),
+        Vertex(glm::vec3(-0.5,-0.5,0.5)),
+        Vertex(glm::vec3(-0.5,0.5,-0.5)),
+        Vertex(glm::vec3(-0.5,-0.5,-0.5)),
+        Vertex(glm::vec3(0.5,-0.5,0.5)),
+        Vertex(glm::vec3(0.5,0.5,-0.5)),
+        Vertex(glm::vec3(0.5,-0.5,-0.5)),
 
+        Vertex(glm::vec3(-0.5,0.5,0.5)),
+        Vertex(glm::vec3(0.5,0.5,0.5)),
+        Vertex(glm::vec3(0.5,0.5,-0.5)),
+        Vertex(glm::vec3(-0.5,-0.5,0.5)),
+        Vertex(glm::vec3(0.5,-0.5,0.5)),
+        Vertex(glm::vec3(0.5,-0.5,-0.5)),
 
-                            Vertex(glm::vec3(-0.5,-0.5,0.5)),
-                            Vertex(glm::vec3(-0.5,0.5,-0.5)),
-                            Vertex(glm::vec3(-0.5,-0.5,-0.5)),
-                            Vertex(glm::vec3(0.5,-0.5,0.5)),
-                            Vertex(glm::vec3(0.5,0.5,-0.5)),
-                            Vertex(glm::vec3(0.5,-0.5,-0.5)),
+        Vertex(glm::vec3(-0.5,0.5,0.5)),
+        Vertex(glm::vec3(-0.5,0.5,-0.5)),
+        Vertex(glm::vec3(0.5,0.5,-0.5)),
+        Vertex(glm::vec3(-0.5,-0.5,0.5)),
+        Vertex(glm::vec3(-0.5,-0.5,-0.5)),
+        Vertex(glm::vec3(0.5,-0.5,-0.5)),
+    };
 
+    // Number of points in space that make up the cube. Max 255 (uint8_t).
+    numVerticies = sizeof(vaoCube) / sizeof(vaoCube[1]);
 
-                            Vertex(glm::vec3(-0.5,0.5,0.5)),
-                            Vertex(glm::vec3(0.5,0.5,0.5)),
-                            Vertex(glm::vec3(0.5,0.5,-0.5)),
-                            Vertex(glm::vec3(-0.5,-0.5,0.5)),
-                            Vertex(glm::vec3(0.5,-0.5,0.5)),
-                            Vertex(glm::vec3(0.5,-0.5,-0.5)),
+    // Create (Generate) one vertex array data buffer, & make it the current active buffer:
+    glGenVertexArrays(1, &vertexArrayObject);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexArrayObject);
 
+    // Push vertices to data buffer:
+    glBufferData(
+        GL_ARRAY_BUFFER,
+        sizeof(vaoCube), // Buffer length.
+        vaoCube,         // Vertices being put in buffer (the cube).
+        GL_STATIC_DRAW   // Tells GPU to keep a copy of the buffer in it's memory.
+    );
 
-                            Vertex(glm::vec3(-0.5,0.5,0.5)),
-                            Vertex(glm::vec3(-0.5,0.5,-0.5)),
-                            Vertex(glm::vec3(0.5,0.5,-0.5)),
-                            Vertex(glm::vec3(-0.5,-0.5,0.5)),
-                            Vertex(glm::vec3(-0.5,-0.5,-0.5)),
-                            Vertex(glm::vec3(0.5,-0.5,-0.5)),
-                        };
-
-    unsigned int numVerticies = sizeof(verticies)/sizeof(verticies[0]);
-    _drawCount = numVerticies;
-    glGenVertexArrays(1, &_vertexArrayObject);
-    glBindVertexArray(_vertexArrayObject);
-
-    glGenBuffers(NUM_BUFFERS,_vetexArrayBuffers);
-    glBindBuffer(GL_ARRAY_BUFFER, _vetexArrayBuffers[POSITION_VB]);
-    glBufferData(GL_ARRAY_BUFFER, numVerticies* sizeof(verticies[0]), verticies, GL_STATIC_DRAW);
-
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-    glBindVertexArray(0);
+    glEnableVertexAttribArray(coord3d);
+    glVertexAttribPointer(
+        coord3d,                      // Attribute (must match value in glEnableVertexAttribArray.
+        3,                            // Number of elements per vertex (x,y,x coords).
+        GL_FLOAT,                     // Type of element.
+        GL_FALSE,                     // Normalized? (0 or 1).
+        0,                            // No extra data between each position.
+        (GLvoid*) (sizeof(glm::vec3)) // Array buffer offset. (Size of the color data)
+    );
+    /*
+    // Color:
+    glEnableVertexAttribArray(color);
+    glVertexAttribPointer(
+        color,                        // Attribute (must match value in glEnableVertexAttribArray.
+        3,                            // Number of elements per vertex (r,g,b)
+        GL_FLOAT,                     // Type of element.
+        GL_FALSE,                     // Normalized? (0 or 1).
+        0,                            // Next color appears every 0 (i.e. never)
+        0                             // Offset of first element
+    );
+    */
 }
 
 Cube::~Cube()
 {
-    glDeleteVertexArrays(1, &_vertexArrayObject);
+    glDeleteVertexArrays(1, &vertexArrayObject);
 }
 
 void Cube::Draw()
 {
-    glBindVertexArray(_vertexArrayObject);
+    // Draw the triangles:
+    glDrawArrays(GL_TRIANGLES, 0, numVerticies);
 
-    glDrawArrays(GL_TRIANGLES, 0, _drawCount);
-
-    glBindVertexArray(0);
+    // Clear stuff so that other things can be drawn? Memory saved? Not needed in modern openGL?
+    //glBindVertexArray(0);
+    //glBindVertexArray(vertexArrayObject);
 }

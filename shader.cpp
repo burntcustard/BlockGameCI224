@@ -10,7 +10,7 @@ Shader::Shader(){}
 Shader::Shader(const std::string& fileName)
 {
     _program = glCreateProgram();
-    _shaders[0] = CreateShader(LoadShader(fileName+".vs"), GL_VERTEX_SHADER);
+    _shaders[0] = CreateShader(LoadShader(fileName + ".vs"), GL_VERTEX_SHADER);
     _shaders[1] = CreateShader(LoadShader(fileName + ".fs"), GL_FRAGMENT_SHADER);
 
     for(unsigned int i=0; i< NUM_SHADERS; i++)
