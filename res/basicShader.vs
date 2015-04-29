@@ -1,6 +1,7 @@
 #version 130
 
-attribute vec3 position, v_color;
+attribute vec3 position;
+attribute vec3 v_color;
 varying vec3 f_color;
 uniform mat4 transform;
 
