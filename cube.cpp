@@ -1,6 +1,6 @@
 #include "cube.h"
 
-Cube::Cube(int x, int y, int z)
+Cube::Cube(float x, float y, float z)
 {
     dead = false;
     Vertex vaoCube[] = {
