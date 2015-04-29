@@ -22,7 +22,7 @@ Camera camera;
 std::vector<std::shared_ptr<Cube>> gameworld;
 std::vector<std::shared_ptr<Cube>> projectiles;
 void updateWorld();
-void drawGame(Shader &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &window);
+void drawGame(vector<std::shared_ptr<Shader>> &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &window);
 
 std::map<int, bool> keys;  // List of keycodes with true/false for pressed/not pressed.
 std::map<char, int> mouse; // X and Y movement of mouse cursor.
@@ -167,8 +167,10 @@ int main(int argc, char* argv[])
     Window window(960,720, "game");
 
     // GameManager game();
-
-    Shader shader("./res/basicShader");
+   // std::vector<std::shared_ptr<Cube>> projectiles;
+    std::vector<std::shared_ptr<Shader>> shader;
+    shader.push_back(std::make_shared<Shader>("./res/basicShader"));
+    shader.push_back(std::make_shared<Shader>("./res/basicShader2"));
 
     cout << "Game started!" << endl;
 
@@ -212,23 +214,23 @@ int main(int argc, char* argv[])
 
 
 //draw everything
-void drawGame(Shader &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &window){
+void drawGame(vector<std::shared_ptr<Shader>> &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &window){
     glClearColor(0.0f, 0.15f, 0.3f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     for (auto c : gameworld)
     {
-        shader.Update(c->t,camera);
+        shader[0]->Update(c->t,camera);
         c->Draw();
     }
-
+    shader[0]->Bind();
     for (auto p : projectiles)
     {
-        shader.Update(p->t,camera);
+        shader[1]->Update(p->t,camera);
         p->Draw();
     }
+    shader[1]->Bind();
 
-    shader.Bind();
     window.Update();
 }
 
