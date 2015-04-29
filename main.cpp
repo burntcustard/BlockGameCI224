@@ -30,15 +30,45 @@ bool isColliding(glm::vec3 aPos, glm::vec3 aScale, glm::vec3 bPos, glm::vec3 bSc
 void fire();
 void pGravity();
 
-float playerMoveSpeed = 0.1;                     // Player/cameras movement speed.
-float lookSensitivity = 0.2;                     // Sensitivity of camera movement controlled by mouse.
-glm::vec3 playerSize = glm::vec3(0.1, 1.0, 0.1); // Player/camera x/y/z dimensions.
+float playerMoveSpeed = 0.05; // Player movement speed.
+int playerAirControl = 15;    // Player movement control while in the air. 1 = Full control, higher = less.
+
+float lookSensitivity = 0.8;                     // Sensitivity of camera movement controlled by mouse.
+glm::vec3 playerSize = glm::vec3(0.2, 0.6, 0.2); // Player/camera x/y/z dimensions.
+
+// x : Player/camera side strafing.
+// y : Player/camera up/down movement.
+// z : Player/camera forward/back movement.
+glm::vec3 playerMovement = glm::vec3(0,0,0);
+
+
+/**
+ * Figures out if the player is standing on the ground.
+ * Use isGrounded(0) for collision detection (e.g. to stop player falling into the ground from gravity).
+ *
+ * @param offset An OPTIONAL variable that "goes a little deeper" into the ground, to actually be low
+ *               enough to go into the block under the player and collide with it.
+ *
+ */
+bool isGrounded(float offset = 0.1)
+{
+    glm::vec3 vOffset = glm::vec3(0,offset,0);
+    for (auto c : gameworld) {
+        if(isColliding(camera.GetPos()-vOffset, playerSize, c->t.GetPos(), c->t.GetScale())) {
+            return true;
+        }
+    }
+    return false;
+}
 
 void handleInput()
 {
-    int playerXMovement = 0; // Player/camera side strafing.
-    int playerZMovement = 0; // Player/camera forward/back movement.
-    int playerYMovement = 0; // Player/camera up/down movement. (Jumping test)
+    glm::vec3 newPlayerMovement = glm::vec3(0,0,0);
+
+    if (isGrounded())
+    {
+        playerMovement = glm::vec3(0,0,0);
+    }
 
     // Update inputs and handle events
     input.updateInput();
@@ -56,53 +86,64 @@ void handleInput()
             // Check if that key does something important:
             switch (key.first)
             {
-                case SDLK_ESCAPE: gameRunning = false;                                          break;
-                case SDLK_w     : playerZMovement =  1;                                         break; // Forward
-                case SDLK_a     : playerXMovement =  1;                                         break; // Left
-                case SDLK_s     : playerZMovement = -1;                                         break; // Back
-                case SDLK_d     : playerXMovement = -1;                                         break; // Right
-                case SDLK_SPACE : {
-                    glm::vec3 legs = glm::vec3(0,-1,0); // Legs that stick out the bottom of camera...
-                    for(int i = 0; i < gameworld.size(); i++) {
-                        if(isColliding(camera.GetPos()+legs, playerSize, gameworld[i]->t.GetPos(),gameworld[i]->t.GetScale())) {
-                            camera.Jump();
-                        }
-                    }
-                } break; // Up
-                case SDLK_LSHIFT: playerYMovement = -1; break; // Down
+                case SDLK_ESCAPE: gameRunning = false;         break;
+                case SDLK_w     : newPlayerMovement.z =  1;        break; // Forward
+                case SDLK_a     : newPlayerMovement.x =  1;        break; // Left
+                case SDLK_s     : newPlayerMovement.z = -1;        break; // Back
+                case SDLK_d     : newPlayerMovement.x = -1;        break; // Right
+                case SDLK_SPACE : if (isGrounded()) camera.Jump(); break; // Up
+                case SDLK_LSHIFT: playerMovement.y = -1; break; // Down
                 default: break; // No useful keys detected in list of pressed keys
             }
         }
     }
 
+    if (isGrounded())
+    // Player on the ground, has full movement control.
+    {
+        playerMovement = newPlayerMovement;
+    }
+    else
+    // Player in the air, has squishy air control.
+    {
+        if (fabsf(playerMovement.x + newPlayerMovement.x / playerAirControl) <= 1)
+            playerMovement.x += newPlayerMovement.x / playerAirControl;
+        if (fabsf(playerMovement.z + newPlayerMovement.z / playerAirControl) <= 1)
+            playerMovement.z += newPlayerMovement.z / playerAirControl;
+    }
+
     // Sideways (x-axis & z-axis) (along the ground) movement.
-    if (playerXMovement && playerZMovement)
+    if (playerMovement.x && playerMovement.z)
     // Diagonal movement - stops you moving too fast when going forward AND sideways
     {
-        camera.Move('z', (playerZMovement * playerMoveSpeed) / sqrt(2));
-        camera.Move('x', (playerXMovement * playerMoveSpeed) / sqrt(2));
+        camera.Move('z', (playerMovement.z * playerMoveSpeed) / sqrt(2));
+        camera.Move('x', (playerMovement.x * playerMoveSpeed) / sqrt(2));
         for(int i = 0; i < gameworld.size(); i++)   {
-            if(isColliding(gameworld[i]->t.GetPos(),gameworld[i]->t.GetScale(),camera.GetPos(),glm::vec3(0.1,0.1,0.1))){
-                camera.Move('z', (-playerZMovement * playerMoveSpeed) / sqrt(2));
-                camera.Move('x', (-playerXMovement * playerMoveSpeed) / sqrt(2));
+            if(isColliding(gameworld[i]->t.GetPos(),gameworld[i]->t.GetScale(),camera.GetPos(),playerSize)){
+                camera.Move('z', (-playerMovement.z * playerMoveSpeed) / sqrt(2));
+                camera.Move('x', (-playerMovement.x * playerMoveSpeed) / sqrt(2));
+                playerMovement.z = 0;
+                playerMovement.x = 0;
             }
         }
     }
     else
     // Simple one direction movement
     {
-        camera.Move('z', (playerZMovement * playerMoveSpeed));
-        camera.Move('x', (playerXMovement * playerMoveSpeed));
+        camera.Move('z', (playerMovement.z * playerMoveSpeed));
+        camera.Move('x', (playerMovement.x * playerMoveSpeed));
         for(int i = 0; i < gameworld.size(); i++)   {
-            if(isColliding(gameworld[i]->t.GetPos(),gameworld[i]->t.GetScale(),camera.GetPos(),glm::vec3(0.1,0.1,0.1))){
-                camera.Move('z', (-playerZMovement * playerMoveSpeed));
-                camera.Move('x', (-playerXMovement * playerMoveSpeed));
+            if(isColliding(gameworld[i]->t.GetPos(),gameworld[i]->t.GetScale(),camera.GetPos(),playerSize)){
+                camera.Move('z', (-playerMovement.z * playerMoveSpeed));
+                camera.Move('x', (-playerMovement.x * playerMoveSpeed));
+                playerMovement.z = 0;
+                playerMovement.x = 0;
             }
         }
     }
 
     // Up / down (y-axis) (jumping etc.) movement.
-    camera.Move('y', (playerYMovement * playerMoveSpeed));
+    camera.Move('y', (playerMovement.y * playerMoveSpeed));
 
     // Get mouse cursor movement changes:
     mouse = input.getMouse();
@@ -145,9 +186,14 @@ int main(int argc, char* argv[])
     gameworld.push_back(std::make_shared<Cube>(-1,-1, 1));
     gameworld.push_back(std::make_shared<Cube>( 0,-1, 1));
     gameworld.push_back(std::make_shared<Cube>( 1,-1, 1));
+    gameworld.push_back(std::make_shared<Cube>(-1,-1, 2));
+    gameworld.push_back(std::make_shared<Cube>( 0,-1, 2));
+    gameworld.push_back(std::make_shared<Cube>( 1,-1, 2));
     gameworld.push_back(std::make_shared<Cube>( 2, 0, 0));
     gameworld.push_back(std::make_shared<Cube>( 2, 0, 1));
     gameworld.push_back(std::make_shared<Cube>( 2, 0, 2));
+    gameworld.push_back(std::make_shared<Cube>( 0, 1, 0));
+    gameworld.push_back(std::make_shared<Cube>( 0, 2, 1));
 
 
     while(!window.IsClosed() && gameRunning)
@@ -170,17 +216,16 @@ void drawGame(Shader &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &
     glClearColor(0.0f, 0.15f, 0.3f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    // This makes sense so removed old commented out version (but comments on each line might be useful too!
-    for(int i = 0; i < gameworld.size(); i++)
+    for (auto c : gameworld)
     {
-        shader.Update(gameworld[i]->t,camera);
-        gameworld[i]->Draw();
+        shader.Update(c->t,camera);
+        c->Draw();
     }
 
-    for(int i = 0; i < projectiles.size(); i++)
+    for (auto p : projectiles)
     {
-        shader.Update(projectiles[i]->t,camera);
-        projectiles[i]->Draw();
+        shader.Update(p->t,camera);
+        p->Draw();
     }
 
     shader.Bind();
@@ -245,15 +290,15 @@ bool isColliding(glm::vec3 aPos, glm::vec3 aScale, glm::vec3 bPos, glm::vec3 bSc
     if (!(fabsf(aPos.x - bPos.x) < aScale.x/2 + bScale.x/2)) return false; // Not colliding on x axis
     if (!(fabsf(aPos.y - bPos.y) < aScale.y/2 + bScale.y/2)) return false; // Not colliding on y axis
     if (!(fabsf(aPos.z - bPos.z) < aScale.z/2 + bScale.z/2)) return false; // Not colliding on z axis
-    return true; // Colliding on all axis, so actually inside each other!
+    return true; // Must be colliding on all axis to get to here, so two objects are actually inside each other!
 }
 
 void pGravity() {
-    camera.yVelocity -= 0.005;
-    if(camera.yVelocity<= -0.1) camera.yVelocity = -0.1;
+    camera.yVelocity -= 0.006;
+    if(camera.yVelocity <= -0.1) camera.yVelocity = -0.1;
     camera.Move('y', camera.yVelocity);
     for(int i = 0; i < gameworld.size(); i++)   {
-        if(isColliding(gameworld[i]->t.GetPos(), gameworld[i]->t.GetScale(), camera.GetPos(), playerSize)){
+        if(isGrounded(0)) {
             camera.Move('y', -camera.yVelocity);
             camera.yVelocity=0;
         }
