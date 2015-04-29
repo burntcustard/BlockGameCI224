@@ -33,6 +33,7 @@ class Transform
         inline glm::vec3& GetPos() {return _pos;}
         inline glm::vec3& GetRot() {return _rot;}
         inline glm::vec3& GetScale() {return _scale;}
+        inline void SetScale(glm::vec3 scale) {_scale = scale;}
         inline glm::vec3& GetForwards() {return _forward;}
 
         //virtual ~Transform();
