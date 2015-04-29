@@ -65,10 +65,8 @@ void handleInput()
 {
     glm::vec3 newPlayerMovement = glm::vec3(0,0,0);
 
-    if (isGrounded())
-    {
-        playerMovement = glm::vec3(0,0,0);
-    }
+    // If you're on the ground, set movement to 0 (as soon as you let go of WASD you stop).
+    if (isGrounded()) playerMovement = glm::vec3(0,0,0);
 
     // Update inputs and handle events
     input.updateInput();
