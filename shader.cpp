@@ -19,6 +19,7 @@ Shader::Shader(const std::string& fileName)
     }
 
     glBindAttribLocation(_program, 0, "position");
+    //glBindAttribLocation(_program, 1, "v_color");
 
     glLinkProgram(_program);
     glValidateProgram(_program);

@@ -44,7 +44,7 @@ class Cube
         GLuint vertexArrayObject;
 
         // These will probably be 0, used for error checking and making related values more readable.
-        GLint coord3d, color;
+        GLint coord3d, v_color;
 
         GLuint _vetexArrayBuffers[NUM_BUFFERS];
         uint8_t numVerticies;

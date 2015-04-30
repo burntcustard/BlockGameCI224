@@ -3,51 +3,49 @@
 Cube::Cube(float x, float y, float z)
 {
     dead = false;
-    Vertex vaoCube[] = {
-        // Color of cube
-        glm::vec3(0.0, 1.0, 0.0),
+    GLfloat vaoCube[] = {
 
-        Vertex(glm::vec3(-0.5,0.5,0.5)),
-        Vertex(glm::vec3(0.5,0.5,0.5)),
-        Vertex(glm::vec3(-0.5,-0.5,0.5)),
-        Vertex(glm::vec3(0.5,0.5,0.5)),
-        Vertex(glm::vec3(-0.5,-0.5,0.5)),
-        Vertex(glm::vec3(0.5,-0.5,0.5)),
+	-0.5,0.5,0.5, 		  //  0.0, 1.0, 0.0,
+        0.5,0.5,0.5, 		//0.0, 1.0, 0.0,
+        -0.5,-0.5,0.5, 	//	0.0, 1.0, 0.0,
+        0.5,0.5,0.5, 	//	0.0, 1.0, 0.0,
+        -0.5,-0.5,0.5, 	//0.0, 1.0, 0.0,
+        0.5,-0.5,0.5, 		//0, 1.0, 0.0,
 
-        Vertex(glm::vec3(-0.5,0.5,-0.5)),
-        Vertex(glm::vec3(0.5,0.5,-0.5)),
-        Vertex(glm::vec3(-0.5,-0.5,-0.5)),
-        Vertex(glm::vec3(0.5,0.5,-0.5)),
-        Vertex(glm::vec3(-0.5,-0.5,-0.5)),
-        Vertex(glm::vec3(0.5,-0.5,-0.5)),
+        -0.5,0.5,-0.5,//	0.0, 1.0, 0.0,
+        0.5,0.5,-0.5, 	//	0.0, 1.0, 0.0,
+        -0.5,-0.5,-0.5, //		0.0, 1.0, 0.0,
+        0.5,0.5,-0.5, 	//	0.0, 1.0, 0.0,
+        -0.5,-0.5,-0.5, //		0.0, 1.0, 0.0,
+        0.5,-0.5,-0.5, 	//	0.0, 1.0, 0.0,
 
-        Vertex(glm::vec3(0.5,0.5,0.5)),
-        Vertex(glm::vec3(0.5,-0.5,0.5)),
-        Vertex(glm::vec3(0.5,0.5,-0.5)),
-        Vertex(glm::vec3(-0.5,0.5,0.5)),
-        Vertex(glm::vec3(-0.5,-0.5,0.5)),
-        Vertex(glm::vec3(-0.5,0.5,-0.5)),
+        0.5,0.5,0.5, 	//	0.0, 1.0, 0.0,
+        0.5,-0.5,0.5, 	//	0.0, 1.0, 0.0,
+        0.5,0.5,-0.5, 	//	0.0, 1.0, 0.0,
+        -0.5,0.5,0.5, 	//	0.0, 1.0, 0.0,
+        -0.5,-0.5,0.5, 	//	0.0, 1.0, 0.0,
+        -0.5,0.5,-0.5, 	//	0.0, 1.0, 0.0,
 
-        Vertex(glm::vec3(-0.5,-0.5,0.5)),
-        Vertex(glm::vec3(-0.5,0.5,-0.5)),
-        Vertex(glm::vec3(-0.5,-0.5,-0.5)),
-        Vertex(glm::vec3(0.5,-0.5,0.5)),
-        Vertex(glm::vec3(0.5,0.5,-0.5)),
-        Vertex(glm::vec3(0.5,-0.5,-0.5)),
+        -0.5,-0.5,0.5, 	//	0.0, 1.0, 0.0,
+        -0.5,0.5,-0.5, 	//	0.0, 1.0, 0.0,
+        -0.5,-0.5,-0.5, //		0.0, 1.0, 0.0,
+        0.5,-0.5,0.5, 	//	0.0, 1.0, 0.0,
+        0.5,0.5,-0.5, 	//	0.0, 1.0, 0.0,
+        0.5,-0.5,-0.5, 	//	0.0, 1.0, 0.0,
 
-        Vertex(glm::vec3(-0.5,0.5,0.5)),
-        Vertex(glm::vec3(0.5,0.5,0.5)),
-        Vertex(glm::vec3(0.5,0.5,-0.5)),
-        Vertex(glm::vec3(-0.5,-0.5,0.5)),
-        Vertex(glm::vec3(0.5,-0.5,0.5)),
-        Vertex(glm::vec3(0.5,-0.5,-0.5)),
+        -0.5,0.5,0.5, 	//	0.0, 1.0, 0.0,
+        0.5,0.5,0.5, 	//	0.0, 1.0, 0.0,
+        0.5,0.5,-0.5, 	//	0.0, 1.0, 0.0,
+        -0.5,-0.5,0.5, 	//	0.0, 1.0, 0.0,
+        0.5,-0.5,0.5, 	//	0.0, 1.0, 0.0,
+        0.5,-0.5,-0.5, 	//	0.0, 1.0, 0.0,
 
-        Vertex(glm::vec3(-0.5,0.5,0.5)),
-        Vertex(glm::vec3(-0.5,0.5,-0.5)),
-        Vertex(glm::vec3(0.5,0.5,-0.5)),
-        Vertex(glm::vec3(-0.5,-0.5,0.5)),
-        Vertex(glm::vec3(-0.5,-0.5,-0.5)),
-        Vertex(glm::vec3(0.5,-0.5,-0.5)),
+        -0.5,0.5,0.5, 	//	0.0, 1.0, 0.0,
+        -0.5,0.5,-0.5, 	//	0.0, 1.0, 0.0,
+        0.5,0.5,-0.5, 	//	0.0, 1.0, 0.0,
+        -0.5,-0.5,0.5, 	//	0.0, 1.0, 0.0,
+        -0.5,-0.5,-0.5, //		0.0, 1.0, 0.0,
+        0.5,-0.5,-0.5, 	//	0.0, 1.0, 0.0,
     };
 
     // Number of points in space that make up the cube. Max 255 (uint8_t).
@@ -65,28 +63,32 @@ Cube::Cube(float x, float y, float z)
     );
 
     glEnableVertexAttribArray(coord3d);
+
     glVertexAttribPointer(
         coord3d,                      // Attribute (must match value in glEnableVertexAttribArray.
         3,                            // Number of elements per vertex (x,y,x coords).
         GL_FLOAT,                     // Type of element.
         GL_FALSE,                     // Normalized? (0 or 1).
-        0,                            // No extra data between each position.
-        (GLvoid*) (sizeof(glm::vec3)) // Array buffer offset. (Size of the color data)
+        3 * sizeof(GLfloat),                            // No extra data between each position.
+        0 // Array buffer offset. (Size of the color data)
     );
-    t.GetPos()=glm::vec3(x,y,z);
-    t.GetForwards()=glm::vec3(0,0,0);
-    /*
+
+/*
     // Color:
-    glEnableVertexAttribArray(color);
+glEnableVertexAttribArray(v_color);
     glVertexAttribPointer(
-        color,                        // Attribute (must match value in glEnableVertexAttribArray.
+        v_color,                        // Attribute (must match value in glEnableVertexAttribArray.
         3,                            // Number of elements per vertex (r,g,b)
         GL_FLOAT,                     // Type of element.
         GL_FALSE,                     // Normalized? (0 or 1).
-        0,                            // Next color appears every 0 (i.e. never)
-        0                             // Offset of first element
+        3 * sizeof(GLfloat),          // Next color appears every 0 (i.e. never)
+        (GLvoid*) (3 * sizeof(GLfloat))  // Offset of first element
     );
+
     */
+    t.GetPos()=glm::vec3(x,y,z);
+    t.GetForwards()=glm::vec3(0,0,0);
+
 }
 
 Cube::~Cube()
