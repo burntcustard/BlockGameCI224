@@ -225,7 +225,7 @@ void drawGame(vector<std::shared_ptr<Shader>> &shader, vector<std::shared_ptr<Cu
         shader[0]->Update(c->t,camera);
         c->Draw();
     }
-    shader[0]->Bind();
+shader[0]->Bind();
     for (auto p : projectiles)
     {
         shader[1]->Update(p->t,camera);
