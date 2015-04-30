@@ -7,6 +7,7 @@
 #include "camera.h"
 #include "transform.h"
 #include "gamemanager.h"
+#include "level.h"
 #include <map>
 #include "input.h"
 #include <vector>
@@ -19,6 +20,7 @@ bool gameRunning = true;
 
 Input input;
 Camera camera;
+Level level;
 std::vector<std::shared_ptr<Cube>> gameworld;
 std::vector<std::shared_ptr<Cube>> projectiles;
 void updateWorld();
@@ -172,6 +174,8 @@ int main(int argc, char* argv[])
 
     cout << "Game started!" << endl;
 
+    level.Load(gameworld);
+    /*
     gameworld.push_back(std::make_shared<Cube>(4,0,4));
     gameworld.push_back(std::make_shared<Cube>(0,1,3));
     gameworld.push_back(std::make_shared<Cube>(-1,-1,-2));
@@ -194,7 +198,7 @@ int main(int argc, char* argv[])
     gameworld.push_back(std::make_shared<Cube>( 2, 0, 2));
     gameworld.push_back(std::make_shared<Cube>( 0, 1, 0));
     gameworld.push_back(std::make_shared<Cube>( 0, 2, 1));
-
+    */
 
     while(!window.IsClosed() && gameRunning)
     {
