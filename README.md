@@ -2,6 +2,28 @@ CI224 University Gamesdev Semester 2 Assessment
 List of team members & objectives:
 Owen Alister-Hooke, John Evans
 
+Building the project:
+Requires: libgl, SDL2, glew.
+On Ubuntu you can easily get these with:
+sudo apt-get install libgl1-mesa-dev
+sudo apt-get install libsdl2-dev
+sudo apt-get install libglew-dev
+
+C++ compiler options:
+-std=c++11
+
+Windows linker options:
+-lmingw32
+-lSDL2main
+-lSDL2
+-lopengl32
+-lglew32
+
+Linux linker options:
+-lSDL2
+-lGLEW
+-lGL
+
 Essential objectives:
 
 1) Create a cubeworld with at least 10 different cubes, or OpenGL shapes.
