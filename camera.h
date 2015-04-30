@@ -14,7 +14,8 @@ class Camera
         // shader.cpp Shader::Update to be able to use it.
         inline glm::mat4 GetViewProjection() const
         {
-            return _perspective * glm::lookAt(cameraPosition, cameraPosition + _forward, up);
+            glm::vec3 offset=glm::vec3(0,0.45,0);// player height = scale.y/2 + offset
+            return _perspective * glm::lookAt(cameraPosition + offset, cameraPosition +offset + _forward, up);
         }
         inline glm::vec3 GetPos()
         {
