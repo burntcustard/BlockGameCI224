@@ -7,15 +7,14 @@
 class Camera
 {
     public:
-        Camera();
+        Camera(glm::vec3 &playerSize);
         ~Camera();
         // inline functions are tricky. Declared here, but not defined if it's
         // written in the .cpp, and it needs to be defined when the program starts for
         // shader.cpp Shader::Update to be able to use it.
         inline glm::mat4 GetViewProjection() const
         {
-            glm::vec3 offset=glm::vec3(0,0.45,0);// player height = scale.y/2 + offset
-            return _perspective * glm::lookAt(cameraPosition + offset, cameraPosition +offset + _forward, up);
+            return _perspective * glm::lookAt(cameraPosition + pOffset, cameraPosition + pOffset + _forward, up);
         }
         inline glm::vec3 GetPos()
         {
@@ -35,6 +34,7 @@ class Camera
         void Jump();
     private:
         glm::mat4 _perspective;
+        glm::vec3 pOffset;
         glm::vec3 cameraPosition;
         glm::vec3 _forward;
         glm::vec3 up;
