@@ -1,6 +1,6 @@
 CI224 University Gamesdev Semester 2 Assessment
 List of team members & objectives:
-Reece Cunningham, Owen Alister-Hooke, John Evans
+Owen Alister-Hooke, John Evans
 
 Essential objectives:
 
