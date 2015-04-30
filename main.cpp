@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
-//#include <GL/glew.h>
+#include <vector>
+#include <map>
 #include "window.h"
 #include "shader.h"
 #include "cube.h"
@@ -8,40 +9,40 @@
 #include "transform.h"
 #include "gamemanager.h"
 #include "level.h"
-#include <map>
 #include "input.h"
-#include <vector>
-#include <utility>
-#include <memory>
-
-using namespace std;
 
 bool gameRunning = true;
 
-Input input;
-Camera camera;
-Level level;
-std::vector<std::shared_ptr<Cube>> gameworld;
-std::vector<std::shared_ptr<Cube>> projectiles;
-void updateWorld();
-void drawGame(vector<std::shared_ptr<Shader>> &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &window);
-
-std::map<int, bool> keys;  // List of keycodes with true/false for pressed/not pressed.
-std::map<char, int> mouse; // X and Y movement of mouse cursor.
-bool isColliding(glm::vec3 aPos, glm::vec3 aScale, glm::vec3 bPos, glm::vec3 bScale);
-void fire();
-void pGravity();
-
+// Configurable player/camera variables:
 float playerMoveSpeed = 0.05; // Player movement speed.
 int playerAirControl = 15;    // Player movement control while in the air. 1 = Full control, higher = less.
+float lookSensitivity = 0.8;  // Sensitivity of camera movement controlled by mouse.
+glm::vec3 playerSize = glm::vec3(0.2, 0.6, 0.2); // Player/camera x/y/z dimensions (e.g. hitbox).
 
-float lookSensitivity = 0.8;                     // Sensitivity of camera movement controlled by mouse.
-glm::vec3 playerSize = glm::vec3(0.2, 0.6, 0.2); // Player/camera x/y/z dimensions.
-
+// Variables to store the players current properties/inputs etc:
+std::map<int, bool> keys;  // List of keycodes with true/false for pressed/not pressed.
+std::map<char, int> mouse; // X and Y movement of mouse cursor.
+glm::vec3 playerMovement = glm::vec3(0,0,0);
 // x : Player/camera side strafing.
 // y : Player/camera up/down movement.
 // z : Player/camera forward/back movement.
-glm::vec3 playerMovement = glm::vec3(0,0,0);
+
+// Variables to store the levels current properties (cubes that are in it etc.):
+std::vector<std::shared_ptr<Cube>> gameworld;
+std::vector<std::shared_ptr<Cube>> projectiles;
+
+// Initialize stuff:
+Input input;
+Camera camera(playerSize);
+Level level;
+
+
+bool isColliding(glm::vec3 aPos, glm::vec3 aScale, glm::vec3 bPos, glm::vec3 bScale) {
+    if (!(fabsf(aPos.x - bPos.x) < aScale.x/2 + bScale.x/2)) return false; // Not colliding on x axis
+    if (!(fabsf(aPos.y - bPos.y) < aScale.y/2 + bScale.y/2)) return false; // Not colliding on y axis
+    if (!(fabsf(aPos.z - bPos.z) < aScale.z/2 + bScale.z/2)) return false; // Not colliding on z axis
+    return true; // Must be colliding on all axis to get to here, so two objects are actually inside each other!
+}
 
 
 /**
@@ -55,13 +56,35 @@ glm::vec3 playerMovement = glm::vec3(0,0,0);
 bool isGrounded(float offset = 0.1)
 {
     glm::vec3 vOffset = glm::vec3(0,offset,0);
-    for (auto c : gameworld) {
-        if(isColliding(camera.GetPos()-vOffset, playerSize, c->t.GetPos(), c->t.GetScale())) {
+    for (auto c : gameworld)
+    {
+        if(isColliding(camera.GetPos()-vOffset, playerSize, c->t.GetPos(), c->t.GetScale()))
             return true;
-        }
     }
     return false;
 }
+
+
+void fire()
+{
+    projectiles.push_back(std::make_shared<Cube>(camera.GetPos().x, camera.GetPos().y, camera.GetPos().z));
+    projectiles[projectiles.size()-1]->t.GetForwards() = camera.GetForward();
+    projectiles[projectiles.size()-1]->t.GetScale() = glm::vec3(0.3, 0.3, 0.3);
+}
+
+
+void pGravity()
+{
+    camera.yVelocity -= 0.006;
+    if (camera.yVelocity <= -0.1) camera.yVelocity = -0.1;
+    camera.Move('y', camera.yVelocity);
+    if(isGrounded(0))
+    {
+        camera.Move('y', -camera.yVelocity);
+        camera.yVelocity = 0;
+    }
+}
+
 
 void handleInput()
 {
@@ -82,7 +105,7 @@ void handleInput()
         if (key.second) // If second value in map (the bool) = true (i.e. if keypressed)
         {
             // Show the name of the key in console:
-            cout << "Key down: " << SDL_GetKeyName(key.first) << endl;
+            std::cout << "Key down: " << SDL_GetKeyName(key.first) << std::endl;
             // Check if that key does something important:
             switch (key.first)
             {
@@ -148,7 +171,7 @@ void handleInput()
     // Get mouse cursor movement changes:
     mouse = input.getMouse();
     // If mouse has moved, spit it into console:
-    if (mouse['x'] | mouse['y']) cout << "Mouse moved X: " << mouse['x'] << ", Y: " << mouse['y'] << endl;
+    if (mouse['x'] | mouse['y']) std::cout << "Mouse moved X: " << mouse['x'] << ", Y: " << mouse['y'] << std::endl;
 
     // Rotate camera
     camera.RotateX(mouse['x'] * lookSensitivity); // Look left/right
@@ -156,67 +179,10 @@ void handleInput()
 
     // Mouse buttons (should be done with keyboard shortcuts?)
     if (mouse['l']) fire();
-
-}
-
-int main(int argc, char* argv[])
-{
-    SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_ShowCursor(0); // Hide mouse cursor
-    SDL_SetRelativeMouseMode(SDL_TRUE); // Capture mouse (prevents stuck when hitting window edge)
-    Window window(960,720, "game");
-
-    // GameManager game();
-   // std::vector<std::shared_ptr<Cube>> projectiles;
-    std::vector<std::shared_ptr<Shader>> shader;
-    shader.push_back(std::make_shared<Shader>("./res/basicShader"));
-    shader.push_back(std::make_shared<Shader>("./res/basicShader2"));
-
-    cout << "Game started!" << endl;
-
-    level.Load(gameworld);
-    /*
-    gameworld.push_back(std::make_shared<Cube>(4,0,4));
-    gameworld.push_back(std::make_shared<Cube>(0,1,3));
-    gameworld.push_back(std::make_shared<Cube>(-1,-1,-2));
-    gameworld.push_back(std::make_shared<Cube>( 0,-1,-2));
-    gameworld.push_back(std::make_shared<Cube>( 1,-1,-2));
-    gameworld.push_back(std::make_shared<Cube>(-1,-1,-1));
-    gameworld.push_back(std::make_shared<Cube>( 0,-1,-1));
-    gameworld.push_back(std::make_shared<Cube>( 1,-1,-1));
-    gameworld.push_back(std::make_shared<Cube>(-1,-1, 0));
-    gameworld.push_back(std::make_shared<Cube>( 0,-1, 0));
-    gameworld.push_back(std::make_shared<Cube>( 1,-1, 0));
-    gameworld.push_back(std::make_shared<Cube>(-1,-1, 1));
-    gameworld.push_back(std::make_shared<Cube>( 0,-1, 1));
-    gameworld.push_back(std::make_shared<Cube>( 1,-1, 1));
-    gameworld.push_back(std::make_shared<Cube>(-1,-1, 2));
-    gameworld.push_back(std::make_shared<Cube>( 0,-1, 2));
-    gameworld.push_back(std::make_shared<Cube>( 1,-1, 2));
-    gameworld.push_back(std::make_shared<Cube>( 2, 0, 0));
-    gameworld.push_back(std::make_shared<Cube>( 2, 0, 1));
-    gameworld.push_back(std::make_shared<Cube>( 2, 0, 2));
-    gameworld.push_back(std::make_shared<Cube>( 0, 1, 0));
-    gameworld.push_back(std::make_shared<Cube>( 0, 2, 1));
-    */
-
-    while(!window.IsClosed() && gameRunning)
-    {
-
-        handleInput();
-
-        updateWorld();
-
-        drawGame(shader, gameworld, window);
-
-    }
-    SDL_QUIT;
-    return 0;
 }
 
 
-//draw everything
-void drawGame(vector<std::shared_ptr<Shader>> &shader, vector<std::shared_ptr<Cube>> &gameworld, Window &window){
+void drawGame(std::vector<std::shared_ptr<Shader>> &shader, std::vector<std::shared_ptr<Cube>> &gameworld, Window &window){
     glClearColor(0.0f, 0.15f, 0.3f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -236,6 +202,7 @@ shader[0]->Bind();
     window.Update();
 }
 
+
 void updateWorld(){
 
     // Move projectiles forward, set any that are too far away from player to dead:
@@ -248,14 +215,14 @@ void updateWorld(){
         )
         {
             p->SetDead();
-            cout << "Projectile removed because out of range of player, ";
-            cout << "x: " << p->t.GetPos().x << ", ";
-            cout << "y: " << p->t.GetPos().y << ", ";
-            cout << "z: " << p->t.GetPos().z << "." << endl;
+            std::cout << "Projectile removed because out of range of player, ";
+            std::cout << "x: " << p->t.GetPos().x << ", ";
+            std::cout << "y: " << p->t.GetPos().y << ", ";
+            std::cout << "z: " << p->t.GetPos().z << "." << std::endl;
         }
     }
 
-    pGravity();
+    pGravity(); // Make the player fall.
 
     // Detect collisions:
     for (auto p : projectiles)
@@ -265,7 +232,7 @@ void updateWorld(){
             if (isColliding(p->t.GetPos(), p->t.GetScale(), c->t.GetPos(), c->t.GetScale()))
             {
                 // There was a collision and now the two things explode.
-                cout << "COLLISION!" << endl;
+                std::cout << "COLLISION!" << std::endl;
                 p->SetDead();
                 c->SetDead();
             }
@@ -292,29 +259,31 @@ void updateWorld(){
 }
 
 
+int main(int argc, char* argv[])
+{
+    SDL_Init(SDL_INIT_EVERYTHING);
+    SDL_ShowCursor(0); // Hide mouse cursor
+    SDL_SetRelativeMouseMode(SDL_TRUE); // Capture mouse (prevents stuck when hitting window edge)
+    Window window(960,720, "game");
 
-void fire() {
-    projectiles.push_back(std::make_shared<Cube>(camera.GetPos().x, camera.GetPos().y, camera.GetPos().z));
-    projectiles[projectiles.size()-1]->t.GetForwards() = camera.GetForward();
-    projectiles[projectiles.size()-1]->t.GetScale() = glm::vec3(0.3, 0.3, 0.3);
+    std::vector<std::shared_ptr<Shader>> shader;
+    shader.push_back(std::make_shared<Shader>("./res/basicShader"));
+    shader.push_back(std::make_shared<Shader>("./res/basicShader2"));
 
-}
+    std::cout << "BlockGame started!" << std::endl;
 
-bool isColliding(glm::vec3 aPos, glm::vec3 aScale, glm::vec3 bPos, glm::vec3 bScale) {
-    if (!(fabsf(aPos.x - bPos.x) < aScale.x/2 + bScale.x/2)) return false; // Not colliding on x axis
-    if (!(fabsf(aPos.y - bPos.y) < aScale.y/2 + bScale.y/2)) return false; // Not colliding on y axis
-    if (!(fabsf(aPos.z - bPos.z) < aScale.z/2 + bScale.z/2)) return false; // Not colliding on z axis
-    return true; // Must be colliding on all axis to get to here, so two objects are actually inside each other!
-}
+    level.Load(gameworld); // Load all the cubes!
 
-void pGravity() {
-    camera.yVelocity -= 0.006;
-    if(camera.yVelocity <= -0.1) camera.yVelocity = -0.1;
-    camera.Move('y', camera.yVelocity);
-    for(int i = 0; i < gameworld.size(); i++)   {
-        if(isGrounded(0)) {
-            camera.Move('y', -camera.yVelocity);
-            camera.yVelocity=0;
-        }
+    while(!window.IsClosed() && gameRunning)
+    {
+
+        handleInput();
+
+        updateWorld();
+
+        drawGame(shader, gameworld, window);
+
     }
+    SDL_QUIT;
+    return 0;
 }

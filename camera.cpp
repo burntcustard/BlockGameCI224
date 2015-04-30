@@ -1,11 +1,14 @@
 #include "camera.h"
 
-Camera::Camera()
+Camera::Camera(glm::vec3 &playerSize)
 {
     _perspective = glm::perspective(70.0f, 800/600.0f, 0.01f, 500.0f);
-    cameraPosition = glm::vec3(0,0,0); // Position of camera in world space
-    _forward = glm::vec3(0,0,1); // The way the camera is looking, default is looking in Z direction
-    up = glm::vec3(0,1,0); // Which way is up in relation to the camera
+    cameraPosition = glm::vec3(0,0,0); // Position of camera in world space.
+    // p(erspective)Offset is the value that is added on to the cameraPosition to "move the players
+    // eyes" from the center of the players hitbox to (very) near the top:
+    pOffset = glm::vec3(0, playerSize.y / 2 - playerSize.y / 20, 0);
+    _forward = glm::vec3(0,0,1); // The way the camera is looking, default is looking in Z direction.
+    up = glm::vec3(0,1,0); // Which way is up in relation to the camera, default... up (positive y-axis).
 }
 
 Camera::~Camera() {}
@@ -56,7 +59,7 @@ void Camera::Move(char direction, float amount)
 }
 
 void Camera::Jump() {
-    yVelocity= 0.14;
+    yVelocity = 0.14;
 }
 
 // Rotate camera left / right
