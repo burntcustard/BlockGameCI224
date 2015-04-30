@@ -7,6 +7,7 @@
 #include "camera.h"
 #include "transform.h"
 #include "gamemanager.h"
+#include "level.h"
 #include <map>
 #include "input.h"
 #include <vector>
@@ -19,6 +20,7 @@ bool gameRunning = true;
 
 Input input;
 Camera camera;
+Level level;
 std::vector<std::shared_ptr<Cube>> gameworld;
 std::vector<std::shared_ptr<Cube>> projectiles;
 void updateWorld();
@@ -65,10 +67,8 @@ void handleInput()
 {
     glm::vec3 newPlayerMovement = glm::vec3(0,0,0);
 
-    if (isGrounded())
-    {
-        playerMovement = glm::vec3(0,0,0);
-    }
+    // If you're on the ground, set movement to 0 (as soon as you let go of WASD you stop).
+    if (isGrounded()) playerMovement = glm::vec3(0,0,0);
 
     // Update inputs and handle events
     input.updateInput();
@@ -174,6 +174,8 @@ int main(int argc, char* argv[])
 
     cout << "Game started!" << endl;
 
+    level.Load(gameworld);
+    /*
     gameworld.push_back(std::make_shared<Cube>(4,0,4));
     gameworld.push_back(std::make_shared<Cube>(0,1,3));
     gameworld.push_back(std::make_shared<Cube>(-1,-1,-2));
@@ -196,7 +198,7 @@ int main(int argc, char* argv[])
     gameworld.push_back(std::make_shared<Cube>( 2, 0, 2));
     gameworld.push_back(std::make_shared<Cube>( 0, 1, 0));
     gameworld.push_back(std::make_shared<Cube>( 0, 2, 1));
-
+    */
 
     while(!window.IsClosed() && gameRunning)
     {
@@ -236,10 +238,20 @@ shader[0]->Bind();
 
 void updateWorld(){
 
-    for(int i = 0; i < projectiles.size(); i++)
+    // Move projectiles forward, set any that are too far away from player to dead:
+    for (auto p : projectiles)
     {
-        if(projectiles.size()>0){
-            projectiles[i]->t.GetPos()+= projectiles[i]->t.GetForwards();
+        p->t.GetPos()+= p->t.GetForwards(); // Move forward.
+        if (fabsf(p->t.GetPos().x) > 99 + fabsf(camera.GetPos().x) ||
+            fabsf(p->t.GetPos().y) > 99 + fabsf(camera.GetPos().y) ||
+            fabsf(p->t.GetPos().z) > 99 + fabsf(camera.GetPos().z)
+        )
+        {
+            p->SetDead();
+            cout << "Projectile removed because out of range of player, ";
+            cout << "x: " << p->t.GetPos().x << ", ";
+            cout << "y: " << p->t.GetPos().y << ", ";
+            cout << "z: " << p->t.GetPos().z << "." << endl;
         }
     }
 
@@ -260,7 +272,7 @@ void updateWorld(){
         }
     }
 
-    // Remove dead projectiles
+    // Remove dead projectiles:
     std::vector<std::shared_ptr<Cube>> tmpProjectiles;
     for (auto p : projectiles)
     {
@@ -269,7 +281,7 @@ void updateWorld(){
     projectiles.clear();
     projectiles = tmpProjectiles;
 
-    // Remove dead cubes
+    // Remove dead cubes:
     std::vector<std::shared_ptr<Cube>> tmpCubes;
     for (auto c : gameworld)
     {
